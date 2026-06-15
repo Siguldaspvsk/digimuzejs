@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Intervijas</title>
+
+  <style>
+    /* ===== Krāsu mainīgie ===== */
+:root{
+  --bg:#f4ecd8;
+  --card:#ffffff;
+  --text:#2f2f2f;
+  --muted:#6b6b6b;
+  --brand:#4e93fc;
+  --border:#d6cbb3;
+  --shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+    /* Tumšais režīms: šis strādā, ja data-theme tiek uzlikts UZ <html> elementa */
+    
+html[data-theme="dark"]{
+  --bg:#1f1d18;        
+  --card:#2a2620;      
+  --text:#f1eee6;
+  --muted:#b8b1a6;
+  --brand:#d4af37;     
+  --border:#3b352c;
+  --shadow: 0 10px 25px rgba(0,0,0,.6);
+}
+
+html[data-theme="dark"] #scrollTopBtn .bg{
+  stroke: rgba(255,255,255,0.2);
+} 
+
+html[data-theme="dark"] #scrollTopBtn .arrow{
+  color: var(--brand);
+}
+
+
+html[data-theme="dark"] .card__img{
+  filter: brightness(0.9) contrast(1.1);
+}
+
+html[data-theme="dark"] .card{
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+html[data-theme="dark"] .card:hover{
+  box-shadow: 0 12px 30px rgba(212,175,55,0.2);
+}
+
+html[data-theme="dark"] .locked::after {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+}
+
+    /* ===== Bāze ===== */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
+      line-height:1.5;
+    }
+
+    /* ===== Augšējā josla ===== */
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--bg); border-bottom:1px solid var(--border);
+    padding:.6rem .9rem;
+    }
+  .brand{display:flex; align-items:center; gap:.5rem; color:var(--brand); font-weight:800}
+  .brand__emoji{font-size:1.2rem}
+  .icon-btn{background:transparent; border:1px solid var(--border); color:var(--text);
+            padding:.35rem .6rem; border-radius:.5rem; cursor:pointer;
+    }
+
+    /* ===== Titulbilde + profils ===== */
+  .cover-wrap{ position:relative; }
+  .cover{width:100%;
+    /* Desktopā seklāka, telefonā augstāka */
+        aspect-ratio: 26/6;
+        object-fit:cover; display:block; background:#dfe3ee;
+    }
+
+    /* Baltais profila konteiners, kas pārklājas ar titulbildes apakšu */
+  .profile-bar{background: var(--card);
+                position:relative;
+                display:flex; align-items:center; gap:1rem;
+    /* ŠEIT galvenās izmaiņas: profila bloka platums plūst līdzi ekrānam */
+                width: clamp(280px, 92vw, 920px);
+                margin: -48px auto 0;           /* pārklāšanās ar cover apakšu */
+                padding: .8rem 1rem;
+                border:1px solid var(--border);
+                border-radius:.9rem;
+                box-shadow: var(--shadow);
+    }
+
+  .avatar{
+    /* Avatāram arī plūstošs izmērs, bet ar minimumu */
+      width: clamp(72px, 10vw, 140px);
+      height: clamp(72px, 10vw, 140px);
+      border-radius:50%; object-fit:contain;
+      border:3px solid var(--card); box-shadow:var(--shadow); background:#cbd5e1;
+      flex: 0 0 auto;
+    }
+
+  .profile-info{display:flex; flex-direction:column; min-width: 0; }
+    /* Nosaukums plūstoši samazinās */
+  .plant-name{
+      margin:.1rem 0 0 0;
+      font-size: clamp(1.05rem, 3.2vw, 1.7rem);
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  .muted{ color:var(--muted); }
+
+    /* ===== Saturs ===== */
+  .container{
+      width:min(1100px, 100%); margin: .8rem auto 2rem; padding: 0 1rem;
+    }
+
+    /* Konteineri (kartītes) – balti */
+  .cards{display:grid; gap:1rem;
+          grid-template-columns: 1fr;
+    }
+  @media (min-width: 600px){
+    .cards{ grid-template-columns: repeat(2, 1fr); }
+    }
+  @media (min-width: 960px){
+    .cards{ grid-template-columns: repeat(3, 1fr); }
+    }
+
+  .card{background:var(--card);
+      border:1px solid var(--border);
+      border-radius:0.6rem;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      display:flex; flex-direction:column;
+      transition: transform 0.3s;
+    }
+   
+  .card:hover {transform: scale(1.03);
+}
+
+  .card:hover * {cursor: url('ant1_small.png') 16 16, pointer;
+}
+
+  .card__img{
+      width:100%;
+      aspect-ratio: 4/3;
+      object-fit:cover;
+      background:#e5e7eb;
+      display:block;
+      filter: contrast(1.05) saturate(0.9);
+    }
+  .card__body{
+      padding:.75rem .9rem;
+    }
+  .card__title{ margin:0 0 .25rem; font-size:1rem; }
+  .card__text{ margin:0; color:var(--muted); }
+
+    /* ===== Adaptīvie pielāgojumi ===== */
+  @media (max-width: 900px){
+    .profile-bar{
+        gap:.8rem;
+        padding:.7rem .9rem;
+        margin-top: -42px;             /* mazliet mazāk pārklāšanās */
+        width: clamp(260px, 94vw, 840px);
+      }
+    .cover{ aspect-ratio: 16/7; }    /* telefonā cover nedaudz augstāks */
+    }
+
+  @media (max-width: 600px){
+    .profile-bar{
+        gap:.7rem;
+        padding:.6rem .8rem;
+        margin-top: -36px;
+        width: clamp(240px, 96vw, 720px);
+      }
+    .plant-name{ font-size: clamp(1rem, 4.2vw, 1.4rem); }
+    }
+
+    /* ===== Kājene ===== */
+  .footer{ text-align:center; color:var(--muted); padding: 2rem 1rem; }
+    /* ===== MODAL LOGS ===== */
+
+  .modal-backdrop{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+
+  .modal-backdrop.active{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+  .modal-window{
+    background: var(--card);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    max-width: 520px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 1.2rem 1.4rem;
+    position: relative;
+    border: 1px solid var(--border);
+    animation: modalShow .3s ease;
+}
+
+@keyframes modalShow {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+  .modal-close{
+    position: absolute;
+    top: .6rem;
+    right: .6rem;
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--text);
+    cursor: pointer;
+}
+  /* ===== Scroll to top poga ===== */
+  #scrollTopBtn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 300;
+
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+
+  /* ✅ PIEVIENO ŠO */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  #scrollTopBtn.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+  /* SVG */
+  #scrollTopBtn svg{
+    transform: rotate(-90deg);
+}
+
+  #scrollTopBtn circle{
+    fill: none;
+    stroke-width: 4;
+}
+
+  #scrollTopBtn .bg{
+    stroke: rgba(0,0,0,0.1);
+}
+
+  #scrollTopBtn .progress{
+    stroke: var(--brand);
+    stroke-linecap: round;
+    stroke-dasharray: 126; /* 2πr ≈ 2×3.14×20 */
+    stroke-dashoffset: 126;
+    transition: stroke-dashoffset .1s linear;
+}
+
+  /* Bultiņa */
+  #scrollTopBtn .arrow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brand);
+    font-size: 16px;
+    font-weight: bold;
+}
+  .locked {
+    filter: blur(4px);
+    pointer-events: none;
+    position: relative;
+}
+
+  .locked .card__img {
+    filter: blur(4px);
+}
+
+  .locked::after {
+    content: " ";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(2px);
+}
+  </style>
+</head>
+<body>
+  <!-- Virsraksta josla -->
+  <header class="topbar" aria-label="Galvenā navigācija">
+    <div class="brand">
+      <span class="brand__emoji">🐜</span>
+      <span class="brand__text">Siguldas pilsētas vidusskola</span>
+    </div>
+    <button id="themeToggle" class="icon-btn" aria-label="Tumšais/gaišais režīms" type="button">🌓</button>
+  </header>
+
+  <!-- Titulbilde + profila bloks -->
+  <section class="cover-wrap">
+    <!-- Titulbilde -->
+    <img class="cover" id="coverImage"
+         src="SPV_skola_bilde.jpeg"
+         alt="Titulbilde">
+
+    <!-- Pārklājošs profils (balts konteiners, elastīgs) -->
+    <div class="profile-bar">
+      <img class="avatar" id="avatarImage"
+           src="SPV_skudra.png"
+           alt="Profila ikona">
+      <div class="profile-info">
+        <h1 id="plantName" class="plant-name">Siguldas pilsētas vidusskola<span class="muted"></span></h1>
+        <p class="muted">Svinam dzimšanas dienu kopā!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mazie konteineri (kartītes) -->
+  <main class="container">
+    <section class="cards" id="cards">
+      <!-- Kartītes ielādēs JS -->
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div id="modal" class="modal-backdrop">
+      <div class="modal-window">
+        <button class="modal-close" id="modalClose">✖</button>
+        <h2 id="modalTitle"></h2>
+        <p id="modalText"></p>
+        <img id="modalImg" style="width:100%; border-radius:.6rem; margin-top:.8rem;">
+      </div>
+    </div>
+    <small>Copyright © 2026 Siguldas pilsētas vidusskola</small>
+  </footer>
+  
+<button id="scrollTopBtn" aria-label="Uz augšu">
+  <svg width="48" height="48" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20" class="bg"/>
+    <circle cx="24" cy="24" r="20" class="progress"/>
+  </svg>
+  <span class="arrow">↑</span>
+</button>
+
+  <script>
+    (function(){
+      /* ========== Tumšā/gaišā režīma loģika ========== */
+      const LS_THEME = 'pb_theme';
+      const root = document.documentElement; // <html>
+      const themeToggle = document.getElementById('themeToggle');
+
+      // Atjauno tēmu no localStorage (ja ir)
+      const saved = localStorage.getItem(LS_THEME);
+      if (saved === 'dark' || saved === 'light') {
+        root.setAttribute('data-theme', saved);
+      }
+
+      // Pārslēdz tēmu ar pogu
+      themeToggle.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem(LS_THEME, next);
+      });
+
+      /* ========== Kartīšu ielāde ========== */
+      const cardsWrap = document.getElementById('cards');
+
+      const cards = [
+        {
+          title: 'Agita Glāzniece',
+          text: '"Man vienkārši šķita, ka tas ir mans aicinājums."',
+          img: 'Agita_Glazniece/IMG_7810.jpeg',
+          pdf: 'Agita_Glazniece/Agita_Glazniece.pdf',
+          date: '2026-06-10'
+        },
+        {
+          title: 'Agris Lelis',
+          text: '"Interesēja un patika visi sporta veidi, un redzēju tikai tādu darbu, kas varētu būt saistīts ar sportu."',
+          img: 'Agris_Lelis/Agris_L_bilde.jpg',
+          pdf: 'Agris_Lelis/Agris_Lelis.pdf',
+          date: '2026-06-11'
+        },
+        {
+          title: 'Andris Jenerts',
+          text: '"Nekad nevarēja zināt, kā diena izvērtīsies un kādas sarunas radīsies."',
+          img: 'Andris_Jenerts/Andris_J_bilde.jpg',
+          pdf: 'Andris_Jenerts/Andris_Jenerts.pdf',
+          date: '2026-06-15'
+        },
+        {
+          title: 'Arta Elizabete Dimante',
+          text: '"Ar laiku arvien vairāk sajutu vēlmi darīt darbu, kuram ir jēga un nozīme, kur varu ne tikai mācīt, bet arī atbalstīt un iedrošināt bērnus."',
+          img: 'Arta_Elizabete_Dimante/Arta_bilde.png',
+          pdf: 'Arta_Elizabete_Dimante/Arta_Elizabete_Dimante.pdf',
+          date: '2026-06-16'
+        },
+         {
+          title: 'Biruta Pastare',
+          text: '"Tu nekad nezini, ko bērni izdomās, kā stunda beigsies un ko mēs sagatavosim."',
+          img: 'Biruta_Pastare/Biruta_P_bilde.jpeg',
+          pdf: 'Biruta_Pastare/Biruta_Pastare.pdf',
+          date: '2026-06-22'
+        },
+        {
+          title: 'Dace Valgača',
+          text: '"Šobrīd vēl gaidu lielākas pārmaiņas,…"',
+          img: 'Dace_Valgaca/Dace_V_bilde.jpg',
+          pdf: 'Dace_Valgaca/Dace_Valgaca.pdf',
+          date: '2026-06-23'
+        },
+        {
+          title: 'Dairis Irbe',
+          text: '"Ja tas, kas sagādā prieku man, iepriecina arī citus, tad no tā mans prieks tikai vairojas."',
+          img: 'Dairis_Irbe/Dairis_I_bilde.jpg',
+          pdf: 'Dairis_Irbe/Dairis_Irbe.pdf',
+          date: '2026-06-29'
+        },
+        {
+          title: 'Edgars Bajaruns',
+          text: '"Izglītība nav mainījusies cilvēces vēstures attīstības laikā, tāpat kā ritenis nav mainījies - maināmies mēs paši."',
+          img: 'Edgars_Bajaruns/Edgars_B_bilde.jpeg',
+          pdf: 'Edgars_Bajaruns/Edgars_Bajaruns.pdf',
+          date: '2026-06-30'
+        },
+        {
+          title: 'Eduards Ričards Šķesteris',
+          text: '"Jaunam skolotājam grūtākais ir panākt, lai bērni tevi respektē."',
+          img: 'Eduards_Ricards_Skesteris/Eduards_bilde.jpeg',
+          pdf: 'Eduards_Ricards_Skesteris/Eduards_Skesteris.pdf',
+          date: '2026-07-06'
+        },
+        {
+          title: 'Egita Gaigalniece',
+          text: '"Ja ir savstarpējas un cieņpilnas attiecības, ikdienā var paveikt lielas lietas."',
+          img: 'Egita_Gaigalniece/Egita_bilde.jpeg',
+          pdf: 'Egita_Gaigalniece/Egita_Gaigalniece.pdf',
+          date: '2026-07-07'
+        },
+        {
+          title: 'Gaļina Berežkova',
+          text: '"Tā ir ļoti nogurdinoša un emocionāli smaga profesija."',
+          img: 'Galina_Berezkova/Galina_B_bilde.jpeg',
+          pdf: 'Galina_Berezkova/Galina_Berezkova.pdf',
+          date: '2026-07-13'
+        },
+        {
+          title: 'Guna Balode',
+          text: '"Mūsdienu skolēni ir advancētāki, ātrāki, gudrāki un drošāki."',
+          img: 'Guna_Balode/Guna_bilde.png',
+          pdf: 'Guna_Balode/Guna_Balode.pdf',
+          date: '2026-07-14'
+        },
+        {
+          title: 'Gunta Veigule',
+          text: '"Grūtākais vienmēr ir bijis noturēt augstu latiņu ne tikai pašai, bet arī skolai..."',
+          img: 'Gunta_Veigule/guntaveigule.jpg',
+          pdf: 'Gunta_Veigule/Gunta_Veigule.pdf',
+          date: '2026-07-20'
+        },
+        {
+          title: 'Guntra Āboltiņa',
+          text: '"Man principā bija vienalga, kādu priekšmetu mācīju, bet galvenais, ka fiziku ne."',
+          img: 'Guntra_Aboltina/Guntra_bilde.jpeg',
+          pdf: 'Guntra_Aboltina/Guntra_Aboltina.pdf',
+          date: '2026-07-21'
+        },
+        {
+          title: 'Ināra Dalke',
+          text: '"Es varu, man viss izdosies!"',
+          img: 'Inara_Dalke/Inara_Dalke_bilde.jpeg',
+          pdf: 'Inara_Dalke/Inara_Dalke.pdf',
+          date: '2026-07-27'
+        },
+        {
+          title: 'Ināra Vimba',
+          text: '...',
+          img: 'Inara_Vimba/Inara_V_bilde.jpeg',
+          date: '2026-07-28'
+        },
+        {
+          title: 'Ināra Zdanovska',
+          text: '"Vispirms Tev bērnā jāierauga cilvēks."',
+          img: 'Inara_Zdanovska/Inara_Z_bilde.png',
+          pdf: 'Inara_Zdanovska/Inara_Zdanovska.pdf',
+          date: '2026-07-29'
+        },
+        {
+          title: 'Indra Blaua',
+          text: '"Katru dienu skolā notiek kaut kas jauns."',
+          img: 'Indra_Blaua/Indra_B_bilde.jpeg',
+          pdf: 'Indra_Blaua/Indra_Blaua.pdf',
+          date: '2026-07-30'
+        },
+        {
+          title: 'Ineta Stepanova',
+          text: '"Nezaudēt prieku, humoru un zinātkāri."',
+          img: 'Ineta_Stepanova/Ineta_S_bilde.jpeg',
+          pdf: 'Ineta_Stepanova/Ineta_Stepanova.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Inta Ozoliņa',
+          text: '"Izbaudiet skolas laiku. Lai mācības sniedz prieku un gandarījumu.."',
+          img: 'Inta_Ozolina/Inta_O_bilde.jpg',
+          pdf: 'Inta_Ozolina/Inta_Ozolina.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Iveta Krūzīte',
+          text: '"Manuprāt, pats galvenais skolotājam ir gribēt mācīt."',
+          img: 'Iveta_Kruzite/Iveta_K_bilde.jpeg',
+          pdf: 'Iveta_Kruzite/Iveta_Kruzite.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Jānis Miglinieks',
+          text: '"Sāksim turpināt!"',
+          img: 'Janis_Miglinieks/Janis_M_bilde.jpeg',
+          pdf: 'Janis_Miglinieks/Janis_Miglinieks.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Lāsma Šekstello',
+          text: '"Ne tikai kļūt gudrākiem, bet kļūt patstāvīgākiem, elastīgākiem un drosmīgākiem cilvēkiem."',
+          img: 'Lasma_Sekstello/Lasma_S_bilde.jpg',
+          pdf: 'Lasma_Sekstello/Lasma_Sekstello.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Līga Trupavniece',
+          text: '"Darbs ar bērniem ir piepildīts ar vislielāko entuziasmu un mīlestību."',
+          img: 'Liga_Trupavniece/Liga_T_bilde.jpg',
+          pdf: 'Liga_Trupavniece/Liga_Trupavniece.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Māra Taimiņa',
+          text: '"Jo vairāk mēs priecāsimies par procesu, ko darām, jo labāki būs rezultāti."',
+          img: 'Mara_Taimina/Mara_T_bilde.jpeg',
+          pdf: 'Mara_Taimina/Mara_Taimina.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Mareks Veics',
+          text: '"Jo agrāk cilvēks pierod pie kustībām un sporta, jo vieglāk tas kļūs par daļu no ikdienas."',
+          img: 'Mareks_Veics/Mareks_V_bilde.jpeg',
+          pdf: 'Mareks_Veics/Mareks_Veics.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Marita Breidaka',
+          text: '"Vienkārši klausīties sevī, savā sirdsbalsī un mēģināt dzīvē sasniegt savus mērķus."',
+          img: 'Marita_Breidaka/Marita_B_bilde.jpg',
+          pdf: 'Marita_Breidaka/Marita_Breidaka.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Natālija Pozdņaka',
+          text: '"Man patīk, ka šis darbs nav vienmuļš un katra diena ir citādāka."',
+          img: 'Natalija_Pozdnaka/Natalija_bilde.png',
+          pdf: 'Natalija_Pozdnaka/Natalija_Pozdnaka.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Ņina Balode',
+          text: '"Ir svarīgi iemācīties mācīties, jo tas noder visur dzīvē."',
+          img: 'Nina_Balode/Nina_B_bilde.jpeg',
+          pdf: 'Nina_Balode/Nina_Balode.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Rima Sitnikova',
+          text: '"Skolā nekad nav garlaicīgi, katru dienu notiek kaut kas jauns un negaidīts..."',
+          img: 'Rima_Sitnikova/Rima_S_bilde.jpeg',
+          pdf: 'Rima_Sitnikova/Rima_Sitnikova.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Tatjana Arhipova',
+          text: '"Skolēni būtībā ir tādi paši kā agrāk. Vienīgā atšķirība ir tā, ka mums nebija mobilo telefonu. Tas arī viss."',
+          img: 'Tatjana_Arhipova/Tatjana_A_bilde.jpg',
+          pdf: 'Tatjana_Arhipova/Tatjana_Arhipova.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Veneranda Širina',
+          text: '"Svarīgākais ir savstarpēja sapratne — tad viss izdodas."',
+          img: 'Veneranda_Sirina/Veneranda Sirina.png',
+          pdf: 'Veneranda_Sirina/Veneranda_Sirina.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Vija Brikmane',
+          text: '"Jauniešiem vajag izmantot visas iespējas, lai attīstītu savu ķermeni, prātu un spējas, jo nākotnē tas būs ļoti noderīgi."',
+          img: 'Vija_Brikmane/Vija_B_bilde.jpeg',
+          pdf: 'Vija_Brikmane/Vija_Brikmane.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Vineta Šķestere - Buka',
+          text: '"Skolotājs ir diagnoze."',
+          img: 'Vineta_Skestere_Buka/Vineta_SB_bilde.jpeg',
+          pdf: 'Vineta_Skestere_Buka/Vineta_Skestere_Buka.pdf',
+          date: '2026-08-01'
+        },
+        {
+          title: 'Vita Brivka',
+          text: '"Vienu gan varu teikt — mēs esam vispacietīgākie un radošākie, jo nemitīgi, jau kuro gadu, gaidām skolas renovāciju."',
+          img: 'Vita_Brivka/Vita_B_bilde.png',
+          pdf: 'Vita_Brivka/Vita_Brivka.pdf',
+          date: '2026-08-01'
+        },
+      ];
+
+function renderCards(){
+  const today = new Date();
+
+  cardsWrap.replaceChildren(
+    ...cards.map(c => {
+      const el = cardEl(c);
+
+      
+if (!c.date || new Date(c.date) > today) {
+  el.classList.add('locked');
+}
+
+      return el;
+    })
+  );
+}
+
+      function cardEl(c){
+  const card = document.createElement('article');
+  card.className = 'card';
+  card.tabIndex = 0; 
+  card.style.cursor = 'pointer';
+
+  
+card.addEventListener('click', () => {
+  if (c.pdf) {
+    window.open(c.pdf, '_blank');
+  }
+});
+
+  const img = document.createElement('img');
+  img.className = 'card__img';
+  img.alt = c.title;
+  img.src = c.img;
+
+  const body = document.createElement('div');
+  body.className = 'card__body';
+
+  const h3 = document.createElement('h3');
+  h3.className = 'card__title';
+  h3.textContent = c.title;
+
+  const p = document.createElement('p');
+  p.className = 'card__text';
+  p.textContent = c.text;
+
+  body.append(h3, p);
+  card.append(img, body);
+  return card;
+}
+
+      renderCards();
+/* ===== Modal logika ===== */
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modalTitle');
+const modalText = document.getElementById('modalText');
+const modalImg = document.getElementById('modalImg');
+const modalClose = document.getElementById('modalClose');
+
+function openModal(c){
+  modalTitle.textContent = c.title;
+  modalText.textContent = c.text;
+  modalImg.src = c.img;
+
+  modal.classList.add('active');
+}
+
+function closeModal(){
+  modal.classList.remove('active');
+}
+
+modalClose.addEventListener('click', closeModal);
+
+// Aizver, klikšķinot ārpus lodziņa
+modal.addEventListener('click', e => {
+  if (e.target === modal) closeModal();
+});
+
+// Aizver ar ESC
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ===== Scroll to top ===== */
+const scrollBtn = document.getElementById('scrollTopBtn');
+const progressCircle = scrollBtn.querySelector('.progress');
+
+const radius = 20;
+const circumference = 2 * Math.PI * radius;
+
+progressCircle.style.strokeDasharray = circumference;
+
+window.addEventListener('scroll', () => {
+
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = scrollTop / docHeight;
+
+  const offset = circumference - (scrollPercent * circumference);
+  progressCircle.style.strokeDashoffset = offset;
+
+  // Parāda pogu
+  if (scrollTop > 50) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+
+// Klikšķis
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+    })();
+  </script>
+</body>
+</html>
