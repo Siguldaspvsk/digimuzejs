@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ņina Balode</title>
+
+  <style>
+    /* ===== Krāsu mainīgie ===== */
+:root{
+  --bg:#f4ecd8;
+  --text:#2f2f2f;
+  --muted:#6b6b6b;
+  --brand:#4e93fc;
+  --border:#d6cbb3;
+}
+
+    /* Tumšais režīms: šis strādā, ja data-theme tiek uzlikts UZ <html> elementa */
+    
+html[data-theme="dark"]{
+  --bg:#1f1d18;        
+  --text:#f1eee6;
+  --muted:#b8b1a6;
+  --brand:#d4af37;     
+  --border:#3b352c;
+}
+
+html[data-theme="dark"] #scrollTopBtn .bg{
+  stroke: rgba(255,255,255,0.2);
+} 
+
+html[data-theme="dark"] #scrollTopBtn .arrow{
+  color: var(--brand);
+}
+
+/* ===== Bāze ===== */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
+      line-height:1.5;
+    }
+
+/* ===== Augšējā josla ===== */
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--bg); border-bottom:1px solid var(--border);
+    padding:.6rem .9rem;
+    }
+  .brand{display:flex; align-items:center; gap:.5rem; color:var(--brand); font-weight:800}
+  .brand__emoji{font-size:1.2rem}
+  .icon-btn{background:transparent; border:1px solid var(--border); color:var(--text);
+            padding:.35rem .6rem; border-radius:.5rem; cursor:pointer;
+    }
+
+    /* ===== Kājene ===== */
+  .footer{ text-align:center; color:var(--muted); padding: 2rem 1rem; }
+
+  /* ===== Scroll to top poga ===== */
+  #scrollTopBtn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 300;
+
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  #scrollTopBtn.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+  /* SVG */
+  #scrollTopBtn svg{
+    transform: rotate(-90deg);
+}
+
+  #scrollTopBtn circle{
+    fill: none;
+    stroke-width: 4;
+}
+
+  #scrollTopBtn .bg{
+    stroke: rgba(0,0,0,0.1);
+}
+
+  #scrollTopBtn .progress{
+    stroke: var(--brand);
+    stroke-linecap: round;
+    stroke-dasharray: 126; /* 2πr ≈ 2×3.14×20 */
+    stroke-dashoffset: 126;
+    transition: stroke-dashoffset .1s linear;
+}
+
+  /* Bultiņa */
+  #scrollTopBtn .arrow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brand);
+    font-size: 16px;
+    font-weight: bold;
+}
+/* ===== Teksta formatējums ===== */
+.teksts {padding: 12px 20px;
+          max-width: 1000px;
+          margin: 0 auto;}
+.moto {font-style: italic;
+        font-size: 14pt;}
+h1 {text-align: center;}
+.strada {text-align: center;}
+.intervetajs {text-align: right;
+                font-style: italic;}
+.jautajums {font-weight: bold;}
+p {text-align: justify;}
+
+/* ===== Profila bilde ===== */
+.profila_bilde {width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;}
+.profila_ramis {display: flex;
+                justify-content: right;
+                margin-bottom: 30px;}
+.profila_robeza {width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                padding: 6px;
+                background: linear-gradient(125deg, #4e93fc, #0850bd, #3b352c);
+                background-size: 300%;
+                animation: border-rotate 4s linear infinite;}
+@keyframes border-rotate{
+                0% {background-position: 0% 50%;}
+                50% {background-position: 100% 50%;}
+                100% {background-position: 0% 50%;}
+            }
+/* ===== Poga uz sākumu ===== */
+.back-btn{display:block;
+        width: fit-content;
+        margin:2rem auto;
+        padding:.7rem 1.2rem;
+        background:#d4af37;
+        color:white;
+        text-decoration:none;
+        border-radius:8px;
+        text-align: center;
+        transition: .3s;}
+.back-btn:hover{opacity:.9;
+                background-color: #4e93fc;}
+  </style>
+</head>
+<body>
+  <!-- Virsraksta josla -->
+  <header class="topbar" aria-label="Galvenā navigācija">
+    <div class="brand">
+      <span class="brand__emoji">🐜</span>
+      <span class="brand__text">Siguldas pilsētas vidusskola</span>
+    </div>
+    <button id="themeToggle" class="icon-btn" aria-label="Tumšais/gaišais režīms" type="button">🌓</button>
+  </header>
+
+  <!-- Intervija -->
+   <div class="teksts">
+    <div class="profila_ramis">
+          <div class="profila_robeza">
+              <img src="Nina_Balode/Nina_B_bilde.jpeg" class="profila_bilde" alt="Ņina Balode">
+          </div>
+    </div>
+    <p class="moto">"Ir svarīgi iemācīties mācīties, jo tas noder visur dzīvē."</p>
+    <h1>SKOLAS DIREKTORE ŅINA BALODE</h1>
+    <p class="strada">Strādā Siguldas pilsētas vidusskolā kopš 2011.gada</p>
+    <p class="intervetajs">Intervētāja Emīlija Lemberga</p>
+    <p class="jautajums">Kā Jūs nolēmāt kļūt par skolas direktori?</p>
+    <p>Pirms darba Siguldas pilsētas vidusskolā biju Siguldas 3. pamatskolas direktore. 
+        Kad tika apvienotas Siguldas 2. vidusskola un Siguldas 3. pamatskola, tika izveidota jauna skola. 
+        Es kandidēju uz direktores amatu jaunizveidotajā skolā, 
+        piedalījos konkursā un ieguvu iespēju turpināt darbu kā skolas direktore.</p>
+    <p class="jautajums">Vai Jūs iepriekš strādājāt arī par skolotāju?</p>
+    <p>Jā. Esmu absolvējusi Latvijas Universitātes Fizikas un matemātikas fakultāti un 
+        daudzus gadus strādāju par matemātikas skolotāju. Darbu skolā sāku uzreiz pēc 
+        augstskolas absolvēšanas un vēlāk paralēli direktores darbam turpināju arī mācīt matemātiku.</p>
+    <p class="jautajums">Kas Jums visvairāk patīk savā darbā?</p>
+    <p>Man visvairāk patīk iespēja palīdzēt cilvēkiem un redzēt, ka kopīgi izdodas atrisināt dažādas problēmas. 
+        Ir patīkami palīdzēt skolēniem, skolotājiem un vecākiem, kā arī redzēt, 
+        ka skola attīstās un kļūst arvien labāka.</p>
+    <p class="jautajums">Kādi ir lielākie izaicinājumi, vadot skolu?</p>
+    <p>Lielākais izaicinājums ir sekot līdzi pārmaiņām un jaunajām tehnoloģijām, 
+        jo izglītība ļoti strauji mainās. Svarīgi ir saprast, kuras jaunās lietas skolēniem būs noderīgas nākotnē, 
+        vienlaikus saglabājot arī cilvēcīgu kontaktu un labas attiecības skolā.</p>
+    <p class="jautajums">Kā tehnoloģijas ir ietekmējušas mācību procesu?</p>
+    <p>Tehnoloģijas mācību procesā palīdz ļoti daudz, jo tās padara darbu interesantāku un ērtāku. 
+        Tomēr ir svarīgi tās izmantot saprātīgi un neaizmirst arī par klātienes komunikāciju. 
+        Skolēniem ir jāiemācās atpūsties no telefoniem un datoriem, kā arī attīstīt prasmi sarunāties ar cilvēkiem.</p>
+    <p class="jautajums">Kā skola ir mainījusies kopš Jūsu darba sākuma?</p>
+    <p>Skola gadu gaitā ir ļoti attīstījusies un kļuvusi modernāka. 
+        Ir uzbūvēts sporta centrs un laboratoriju korpuss, kā arī uzlabota mācību vide. 
+        Tagad visa skola darbojas vienā ēkā, kas ikdienu padara daudz ērtāku gan skolēniem, gan skolotājiem.</p>
+    <p class="jautajums">Kuras skolas tradīcijas Jūs uzskatāt par vissvarīgākajām?</p>
+    <p>Ļoti svarīgs ir 1. septembris, izlaidumi un 11. novembra Lāpu gājiens, kas vieno visu skolu.</p>
+    <p class="jautajums">Ar ko šī skola ir īpaša?</p>
+    <p>Manuprāt, šī skola ir īpaša ar savstarpējo atbalstu un attiecībām starp skolēniem un skolotājiem. 
+        Ja rodas problēmas, mēs cenšamies tās risināt kopā un sadarbojamies arī ar psihologu, 
+        sociālo pedagogu un citiem speciālistiem. 
+        Skolā svarīgi ir tas, lai neviens nejustos viens ar savām grūtībām.</p>
+    <p class="jautajums">Kā Jūs motivējat skolēnus mācīties?</p>
+    <p>Vislabāk palīdz individuālas sarunas, kurās skolēns pats sāk domāt par savu nākotni un iespējām. 
+        Dažreiz pietiek ar vienu sarunu, lai cilvēks paskatītos uz situāciju citādi un saprastu, 
+        ko viņš vēlas sasniegt dzīvē.</p>
+    <p class="jautajums">Kādu padomu Jūs dotu skolēniem?</p>
+    <p>Es ieteiktu skolēniem vairāk ieklausīties sevī un laikus domāt par savu nākotni. 
+        Ir svarīgi atrast savu ceļu un izvēlēties vidi, kurā cilvēks jūtas labi un motivēti. 
+        Tāpat ļoti svarīgi ir iemācīties mācīties, jo šī prasme noderēs visu dzīvi.</p>
+    <p class="jautajums">Kāds ir bijis Jūsu neaizmirstamākais brīdis skolā?</p>
+    <p>Ļoti īpašs bija brīdis, kad skola ieguva “Viedās skolas” statusu un skolēniem tika nodrošinātas 
+        planšetes mācību darbam.</p>
+    <p class="jautajums">Ko Jūs novēlētu nākamajām skolēnu paaudzēm?</p>
+    <p>Novēlu izmantot skolas laiku lietderīgi, iemācīties mācīties un prast izvērtēt informāciju, 
+        attiecības un savus mērķus.</p>
+    <a href="index.html" class="back-btn">SĀKUMS</a>
+</div>
+
+  <footer class="footer">
+    <small>Copyright © 2026 Siguldas pilsētas vidusskola</small>
+  </footer>
+  
+<button id="scrollTopBtn" aria-label="Uz augšu">
+  <svg width="48" height="48" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20" class="bg"/>
+    <circle cx="24" cy="24" r="20" class="progress"/>
+  </svg>
+  <span class="arrow">↑</span>
+</button>
+
+  <script>
+    (function(){
+      /* ========== Tumšā/gaišā režīma loģika ========== */
+      const LS_THEME = 'pb_theme';
+      const root = document.documentElement; // <html>
+      const themeToggle = document.getElementById('themeToggle');
+
+      // Atjauno tēmu no localStorage (ja ir)
+      const saved = localStorage.getItem(LS_THEME);
+      if (saved === 'dark' || saved === 'light') {
+        root.setAttribute('data-theme', saved);
+      }
+
+      // Pārslēdz tēmu ar pogu
+      themeToggle.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem(LS_THEME, next);
+      });
+
+/* ===== Scroll to top ===== */
+const scrollBtn = document.getElementById('scrollTopBtn');
+const progressCircle = scrollBtn.querySelector('.progress');
+
+const radius = 20;
+const circumference = 2 * Math.PI * radius;
+
+progressCircle.style.strokeDasharray = circumference;
+
+window.addEventListener('scroll', () => {
+
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+  const offset = circumference - (scrollPercent * circumference);
+  progressCircle.style.strokeDashoffset = offset;
+
+  // Parāda pogu
+  if (scrollTop > 50) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+
+// Klikšķis
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+    })();
+  </script>
+</body>
+</html>

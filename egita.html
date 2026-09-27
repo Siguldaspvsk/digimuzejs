@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Egita Gaigalniece</title>
+
+  <style>
+    /* ===== Krāsu mainīgie ===== */
+:root{
+  --bg:#f4ecd8;
+  --text:#2f2f2f;
+  --muted:#6b6b6b;
+  --brand:#4e93fc;
+  --border:#d6cbb3;
+}
+
+    /* Tumšais režīms: šis strādā, ja data-theme tiek uzlikts UZ <html> elementa */
+    
+html[data-theme="dark"]{
+  --bg:#1f1d18;        
+  --text:#f1eee6;
+  --muted:#b8b1a6;
+  --brand:#d4af37;     
+  --border:#3b352c;
+}
+
+html[data-theme="dark"] #scrollTopBtn .bg{
+  stroke: rgba(255,255,255,0.2);
+} 
+
+html[data-theme="dark"] #scrollTopBtn .arrow{
+  color: var(--brand);
+}
+
+/* ===== Bāze ===== */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
+      line-height:1.5;
+    }
+
+/* ===== Augšējā josla ===== */
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--bg); border-bottom:1px solid var(--border);
+    padding:.6rem .9rem;
+    }
+  .brand{display:flex; align-items:center; gap:.5rem; color:var(--brand); font-weight:800}
+  .brand__emoji{font-size:1.2rem}
+  .icon-btn{background:transparent; border:1px solid var(--border); color:var(--text);
+            padding:.35rem .6rem; border-radius:.5rem; cursor:pointer;
+    }
+
+    /* ===== Kājene ===== */
+  .footer{ text-align:center; color:var(--muted); padding: 2rem 1rem; }
+
+  /* ===== Scroll to top poga ===== */
+  #scrollTopBtn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 300;
+
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  #scrollTopBtn.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+  /* SVG */
+  #scrollTopBtn svg{
+    transform: rotate(-90deg);
+}
+
+  #scrollTopBtn circle{
+    fill: none;
+    stroke-width: 4;
+}
+
+  #scrollTopBtn .bg{
+    stroke: rgba(0,0,0,0.1);
+}
+
+  #scrollTopBtn .progress{
+    stroke: var(--brand);
+    stroke-linecap: round;
+    stroke-dasharray: 126; /* 2πr ≈ 2×3.14×20 */
+    stroke-dashoffset: 126;
+    transition: stroke-dashoffset .1s linear;
+}
+
+  /* Bultiņa */
+  #scrollTopBtn .arrow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brand);
+    font-size: 16px;
+    font-weight: bold;
+}
+/* ===== Teksta formatējums ===== */
+.teksts {padding: 12px 20px;
+          max-width: 1000px;
+          margin: 0 auto;}
+.moto {font-style: italic;
+        font-size: 14pt;}
+h1 {text-align: center;}
+.strada {text-align: center;}
+.intervetajs {text-align: right;
+                font-style: italic;}
+.jautajums {font-weight: bold;}
+p {text-align: justify;}
+
+/* ===== Profila bilde ===== */
+.profila_bilde {width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;}
+.profila_ramis {display: flex;
+                justify-content: right;
+                margin-bottom: 30px;}
+.profila_robeza {width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                padding: 6px;
+                background: linear-gradient(125deg, #4e93fc, #0850bd, #3b352c);
+                background-size: 300%;
+                animation: border-rotate 4s linear infinite;}
+@keyframes border-rotate{
+                0% {background-position: 0% 50%;}
+                50% {background-position: 100% 50%;}
+                100% {background-position: 0% 50%;}
+            }
+/* ===== Poga uz sākumu ===== */
+.back-btn{display:block;
+        width: fit-content;
+        margin:2rem auto;
+        padding:.7rem 1.2rem;
+        background:#d4af37;
+        color:white;
+        text-decoration:none;
+        border-radius:8px;
+        text-align: center;
+        transition: .3s;}
+.back-btn:hover{opacity:.9;
+                background-color: #4e93fc;}
+  </style>
+</head>
+<body>
+  <!-- Virsraksta josla -->
+  <header class="topbar" aria-label="Galvenā navigācija">
+    <div class="brand">
+      <span class="brand__emoji">🐜</span>
+      <span class="brand__text">Siguldas pilsētas vidusskola</span>
+    </div>
+    <button id="themeToggle" class="icon-btn" aria-label="Tumšais/gaišais režīms" type="button">🌓</button>
+  </header>
+
+  <!-- Intervija -->
+   <div class="teksts">
+    <div class="profila_ramis">
+          <div class="profila_robeza">
+              <img src="Egita_Gaigalniece/Egita_bilde.jpeg" class="profila_bilde" alt="Egita Gaigalniece">
+          </div>
+    </div>
+    <p class="moto">"Ja ir savstarpējas un cieņpilnas attiecības, ikdienā var paveikt lielas lietas."</p>
+    <h1>LATVIEŠU VALODAS UN LITERATŪRAS SKOLOTĀJA EGITA GAIGALNIECE</h1>
+    <p class="strada">Siguldas pilsētas vidusskolā strādā kopš 2011.gada</p>
+    <p class="intervetajs">Intervētājs Ričards Grants</p>
+    <p class="jautajums">Kā Jūs sākāt strādāt Siguldas pilsētas vidusskolā, un cik ilgi jau šeit strādājat?</p>
+    <p>Es Siguldas pilsētas vidusskolā strādāju no tās pastāvēšanas pirmās dienas. 
+      Skola izveidojās, apvienojot divas skolas Siguldas novada izglītības reformas laikā. 
+      Tas nozīmē, ka šajā skolā strādāju jau 15 gadus, lai gan mans kopējais darba stāžs ir krietni lielāks.</p>
+    <p class="jautajums">Kāda bija skola, kad Jūs sākāt strādāt, un kā tā ir mainījusies šo gadu laikā?</p>
+    <p>Skola ir ļoti mainījusies. Vispirms mēs esam ieguvuši lielākas, lai gan ne jaunas telpas. 
+      Esam kļuvuši par skolēniem bagātāko skolu novadā, un par mums zina un runā arī plašākā sabiedrībā. 
+      Tomēr es ļoti gaidu renovāciju, jaunas un modernas telpas.</p>
+    <p class="jautajums">Kādas ir spilgtākās atmiņas no Jūsu darba šajā skolā?</p>
+    <p>Visvairāk atmiņā palicis attālināto mācību laiks. Šādam pavērsienam mēs nebijām gatavi. 
+      Tika organizēti kursi un apmācības, lai saprastu, kā rīkoties tālāk, 
+      kā turpināt izglītības procesu un kā nepazust datoros, jo bieži vien darba diena ieilga līdz pusnaktij. 
+      Tas bija liels pārbaudījums gan skolotājiem, gan skolēniem.</p>
+    <p class="jautajums">Kā ir mainījušies skolēni pa šiem gadiem?</p>
+    <p>Skolēni ir kļuvuši atvērtāki, pieaugušāki un skolotāju uztver vairāk kā draugu un cilvēku, 
+      kuram var uzticēties. Strādājot vidusskolā, es jūtu, ka starp mani un skolēniem ir līdzsvars 
+      — mēs komunicējam kā vienlīdzīgi.</p>
+    <p class="jautajums">Kas Jums visvairāk patīk, strādājot ar skolēniem?</p>
+    <p>Man patīk sadarbība ar jauniešiem, jo, ja ir savstarpējas un cieņpilnas attiecības, 
+      ikdienā var paveikt lielas lietas. Ir ļoti svarīgi komunicēt, izrunāt visas situācijas un starpgadījumus, 
+      kā arī visu atrisināt mierīgi. Man ir prieks, ka lielākā daļa skolēnu to saprot un pieņem. 
+      Ja ir savstarpējas un cieņpilnas attiecības, ikdienā var paveikt lielas lietas.</p>
+    <p class="jautajums">Kādi izaicinājumi skolotājas darbā ir bijuši visgrūtākie?</p>
+    <p>Lielākais izaicinājums bija attālinātās mācības. Bija nepieciešamas digitālās prasmes, 
+      darbs dažādās platformās, kā arī laiks, lai visu apgūtu un saprastu. Tas ietekmēja arī veselību.</p>
+    <p class="jautajums">Ar ko, Jūsuprāt, šī skola ir īpaša salīdzinājumā ar citām?</p>
+    <p>Mūsu skolā galvenais ir ikviens skolēns, kas šeit mācās, jo mums ir svarīgs cilvēks un tas, 
+      lai viņš skolā justos labi un nāktu uz to ar prieku. Mēs darām daudz dažādu lietu, 
+      piedalāmies projektos un pasākumos, kā arī esam redzami ārpus skolas. 
+      Skolēni var paši darboties un aicināt citus līdzdarboties.</p>
+    <p class="jautajums">Kādu Jūs redzat skolas nākotni pēc 10 - 15 gadiem?</p>
+    <p>Es ceru, ka skola tuvākajos gados piedzīvos renovāciju un kļūs par skaistu, 
+      modernu un mūsdienīgu vidi. Tā harmoniski iekļausies Siguldas pilsētvidē, 
+      tai būs labiekārtota apkārtne, daudz koku, krūmu un ziedošu puķu. 
+      Tā būs arī vieta, kur satikties bijušajiem skolotājiem, skolas darbiniekiem un skolēniem.</p>
+    <p class="jautajums">Kā skola ir ietekmējusi Jūsu dzīvi ārpus darba?</p>
+    <p>Skola ir bijusi ļoti nozīmīga daļa manā dzīvē. Tā ir veidojusi ne tikai manu profesionālo pieredzi, 
+      bet arī attieksmi pret cilvēkiem, darbu un dzīvi kopumā. Ilgajos darba gados esmu sastapusi 
+      daudz dažādu skolēnu un kolēģu, kuri atstājuši paliekošas atmiņas. 
+      Ir patīkami satikt bijušos skolēnus, aprunāties un uzzināt, kā viņi ir iekārtojušies dzīvē, 
+      kādu profesiju izvēlējušies un ko sasnieguši.</p>    
+    <a href="index.html" class="back-btn">SĀKUMS</a>
+</div>
+
+  <footer class="footer">
+    <small>Copyright © 2026 Siguldas pilsētas vidusskola</small>
+  </footer>
+  
+<button id="scrollTopBtn" aria-label="Uz augšu">
+  <svg width="48" height="48" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20" class="bg"/>
+    <circle cx="24" cy="24" r="20" class="progress"/>
+  </svg>
+  <span class="arrow">↑</span>
+</button>
+
+  <script>
+    (function(){
+      /* ========== Tumšā/gaišā režīma loģika ========== */
+      const LS_THEME = 'pb_theme';
+      const root = document.documentElement; // <html>
+      const themeToggle = document.getElementById('themeToggle');
+
+      // Atjauno tēmu no localStorage (ja ir)
+      const saved = localStorage.getItem(LS_THEME);
+      if (saved === 'dark' || saved === 'light') {
+        root.setAttribute('data-theme', saved);
+      }
+
+      // Pārslēdz tēmu ar pogu
+      themeToggle.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem(LS_THEME, next);
+      });
+
+/* ===== Scroll to top ===== */
+const scrollBtn = document.getElementById('scrollTopBtn');
+const progressCircle = scrollBtn.querySelector('.progress');
+
+const radius = 20;
+const circumference = 2 * Math.PI * radius;
+
+progressCircle.style.strokeDasharray = circumference;
+
+window.addEventListener('scroll', () => {
+
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+  const offset = circumference - (scrollPercent * circumference);
+  progressCircle.style.strokeDashoffset = offset;
+
+  // Parāda pogu
+  if (scrollTop > 50) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+
+// Klikšķis
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+    })();
+  </script>
+</body>
+</html>

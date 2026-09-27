@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gaļina Berežkova</title>
+
+  <style>
+    /* ===== Krāsu mainīgie ===== */
+:root{
+  --bg:#f4ecd8;
+  --text:#2f2f2f;
+  --muted:#6b6b6b;
+  --brand:#4e93fc;
+  --border:#d6cbb3;
+}
+
+    /* Tumšais režīms: šis strādā, ja data-theme tiek uzlikts UZ <html> elementa */
+    
+html[data-theme="dark"]{
+  --bg:#1f1d18;        
+  --text:#f1eee6;
+  --muted:#b8b1a6;
+  --brand:#d4af37;     
+  --border:#3b352c;
+}
+
+html[data-theme="dark"] #scrollTopBtn .bg{
+  stroke: rgba(255,255,255,0.2);
+} 
+
+html[data-theme="dark"] #scrollTopBtn .arrow{
+  color: var(--brand);
+}
+
+/* ===== Bāze ===== */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
+      line-height:1.5;
+    }
+
+/* ===== Augšējā josla ===== */
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--bg); border-bottom:1px solid var(--border);
+    padding:.6rem .9rem;
+    }
+  .brand{display:flex; align-items:center; gap:.5rem; color:var(--brand); font-weight:800}
+  .brand__emoji{font-size:1.2rem}
+  .icon-btn{background:transparent; border:1px solid var(--border); color:var(--text);
+            padding:.35rem .6rem; border-radius:.5rem; cursor:pointer;
+    }
+
+    /* ===== Kājene ===== */
+  .footer{ text-align:center; color:var(--muted); padding: 2rem 1rem; }
+
+  /* ===== Scroll to top poga ===== */
+  #scrollTopBtn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 300;
+
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  #scrollTopBtn.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+  /* SVG */
+  #scrollTopBtn svg{
+    transform: rotate(-90deg);
+}
+
+  #scrollTopBtn circle{
+    fill: none;
+    stroke-width: 4;
+}
+
+  #scrollTopBtn .bg{
+    stroke: rgba(0,0,0,0.1);
+}
+
+  #scrollTopBtn .progress{
+    stroke: var(--brand);
+    stroke-linecap: round;
+    stroke-dasharray: 126; /* 2πr ≈ 2×3.14×20 */
+    stroke-dashoffset: 126;
+    transition: stroke-dashoffset .1s linear;
+}
+
+  /* Bultiņa */
+  #scrollTopBtn .arrow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brand);
+    font-size: 16px;
+    font-weight: bold;
+}
+/* ===== Teksta formatējums ===== */
+.teksts {padding: 12px 20px;
+          max-width: 1000px;
+          margin: 0 auto;}
+.moto {font-style: italic;
+        font-size: 14pt;}
+h1 {text-align: center;}
+.strada {text-align: center;}
+.intervetajs {text-align: right;
+                font-style: italic;}
+.jautajums {font-weight: bold;}
+p {text-align: justify;}
+
+/* ===== Profila bilde ===== */
+.profila_bilde {width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;}
+.profila_ramis {display: flex;
+                justify-content: right;
+                margin-bottom: 30px;}
+.profila_robeza {width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                padding: 6px;
+                background: linear-gradient(125deg, #4e93fc, #0850bd, #3b352c);
+                background-size: 300%;
+                animation: border-rotate 4s linear infinite;}
+@keyframes border-rotate{
+                0% {background-position: 0% 50%;}
+                50% {background-position: 100% 50%;}
+                100% {background-position: 0% 50%;}
+            }
+/* ===== Poga uz sākumu ===== */
+.back-btn{display:block;
+        width: fit-content;
+        margin:2rem auto;
+        padding:.7rem 1.2rem;
+        background:#d4af37;
+        color:white;
+        text-decoration:none;
+        border-radius:8px;
+        text-align: center;
+        transition: .3s;}
+.back-btn:hover{opacity:.9;
+                background-color: #4e93fc;}
+  </style>
+</head>
+<body>
+  <!-- Virsraksta josla -->
+  <header class="topbar" aria-label="Galvenā navigācija">
+    <div class="brand">
+      <span class="brand__emoji">🐜</span>
+      <span class="brand__text">Siguldas pilsētas vidusskola</span>
+    </div>
+    <button id="themeToggle" class="icon-btn" aria-label="Tumšais/gaišais režīms" type="button">🌓</button>
+  </header>
+
+  <!-- Intervija -->
+   <div class="teksts">
+    <div class="profila_ramis">
+          <div class="profila_robeza">
+              <img src="Galina_Berezkova/Galina_B_bilde.jpeg" class="profila_bilde" alt="Gaļina Berežkova">
+          </div>
+    </div>
+    <p class="moto">"Tā ir ļoti nogurdinoša un emocionāli smaga profesija."</p>
+    <h1>KRIEVU VALODAS SKOLOTĀJA GAĻINA BEREŽKOVA</h1>
+    <p class="strada">Siguldas pilsētas vidusskolā strādā no 2011.gada</p>
+    <p class="intervetajs">Intervēja Amēlija Joca</p>
+    <p class="jautajums">Labdien! Kādu mācību priekšmetu jūs mācāt?</p>
+    <p>Mācību priekšmets ir krievu valoda. Krievu valoda, senāk bija kā dzimtā valoda, 
+      bet tagad tā ir kā svešvaloda.</p>
+    <p class="jautajums">Cik gadus jūs strādājat skolā?</p>
+    <p>Es strādāju skolā kopš 1987. gada, ar nelielu pārtraukumu. 
+      Man piedzima meita, un nepilnu gadu es biju mājās, lai rūpētos par bērnu. 
+      Bet nu kopumā, tuvojās pie 40 gadiem, jā.</p>
+    <p class="jautajums">Jums patīk šī skola?</p>
+    <p>Man ļoti patīk šī skola. Ja nepatiktu, droši vien es tik ilgi nestrādātu. 
+      Bet kādu laiku pēc tam, tieši pēc universitātes, es vienu gadu es strādāju citā skolā, 
+      tad pārgāju uz šejieni. Un tagad, ņemot vērā manu ilgo darba stāžu šajā skolā, 
+      ja man nepatiktu, protams, es, iespējams, jau būtu mainījusi vai skolu, vai vispār darbu.</p>
+    <p class="jautajums">Vai Jums ir kādi draugi šajā skolā?</p>
+    <p>Protams, mana tuvākā kolēģe šeit, Tatjana Arhipova, nesen aizgāja pensijā. 
+      Nu, protams, es varētu uzskaitīt vēl citus.</p>
+    <p class="jautajums">Kā jūs nolēmāt kļūt par skolotāju?</p>
+    <p>Nu, droši vien atbildēšu tā. Mans mīļākais priekšmets skolā bija tas, ko es mācu. 
+      No sestās klases no Uzbekistānas mēs atbraucām šeit. Kāds tas bija gads? Neatceros. 
+      Es sāku mācīties sestajā klasē. Es mācījos no sestās līdz desmitajai klasei. 
+      Desmitā klase bija pēdējā vidusskolā, tagad ir divpadsmit, bet agrāk bija desmit. 
+      Mans mīļākais priekšmets bija krievu valoda un literatūra. Tas, pirmkārt. 
+      Otrkārt, šo priekšmetu pasniedza mana mīļākā skolotāja, ar kuru mēs draudzējāmies. 
+      Diemžēl pavisam nesen viņa nomira. Tieši viņas piemērs, iespējams, 
+      pamudināja mani kļūt par tieši krievu valodas un literatūras skolotāju.</p>
+    <p class="jautajums">Kas ir visgrūtākais skolotāja profesijā?</p>
+    <p>Ak, tā ir ļoti grūta profesija. Zini, es teiktu, ka tā ir ļoti nogurdinoša un emocionāli smaga profesija. 
+      Es teiktu, ka fiziski es nenogurstu, bet emocionāli es ļoti nogurstu, jo, vai vari iedomāties, 
+      skolotājam katru dienu jāpavada apmēram ar 200 cilvēkiem - klases, skolēni, skolotāji, administrācija. 
+      Vai vari iedomāties, ka caur tevi iet tik daudz, tik daudz dažādu cilvēku, visi ļoti atšķirīgi, 
+      ar atšķirīgu emocionālo līmeni? Nu, vispār mēs visi esam ļoti atšķirīgi. Un emocionāli tas dažreiz ir grūti. 
+      Es visu šo laiku neesmu iemācījusies būt tik mierīga un iecietīga. Ja redzu kādu netaisnību, 
+      piemēram, ja skolēns mani maldina un man ir jāpierāda viņam pašsaprotamas lietas. 
+      Šī netaisnība mani tik ļoti nogurdina, izsūc spēkus. Dažreiz, zini, man tik ļoti gribas, 
+      ak, Dievs, kā es gribu tādu darbu, kur es tikai pāršķirstītu papīrus, kaut ko uzrakstītu. 
+      Bet iznāk tā, ka tu vienmēr esi redzeslokā, un vienmēr ir jādomā, ko teikt un kā teikt.</p>
+    <p class="jautajums">Ja varētu atgriezties pagātnē, varbūt vēlētos nodarboties
+       ar dokumentu kārtošanu vai izvēlētos kādu citu profesiju?</p>
+    <p>Ak, zini, tas ir ļoti, ļoti grūti. Vienkārši, kad nogursti, rodas doma, 
+      ka labāk būtu kaut kur kaut ko sakopt. Bet es domāju nē. Varbūt dažreiz. 
+      Kad es aizstāvēju diplomdarbu, man piedāvāja nokārtot akadēmisko minimumu. 
+      Es varēju iet tālāk. Ar perspektīvu rakstīt zinātnisku darbu vai pasniegt, piemēram, universitātē. 
+      Nu, dažreiz es to nožēloju. Varbūt man vajadzēja iet tālāk, jo, man šķiet, darbs skolā ir tāds sarežģīts. 
+      Lai gan, protams, mēs visi attīstāmies, apmeklējam daudz kursu, semināru, mēs visu laiku augam, 
+      bet tomēr visu savu potenciālu, kas man ir, es, diemžēl, neizmantoju.</p>
+    <p class="jautajums">Un kas jums visvairāk patīk šajā profesijā?</p>
+    <p>Pateicīgi skolēni. Man patīk dot. Zināšanas, ļoti bieži pieķeru sevi domājot, kad redzu kaut ko, 
+      piemēram, ļoti mīlu ceļot, domāju, ka par to, ka man jāpastāsta saviem bērniem. 
+      Esmu izlasījusi kaut ko interesantu? O, man noteikti jāpastāsta bērniem. 
+      Es arī ļoti mīlu pieiet lietām radoši.</p>    
+    <a href="index.html" class="back-btn">SĀKUMS</a>
+</div>
+
+  <footer class="footer">
+    <small>Copyright © 2026 Siguldas pilsētas vidusskola</small>
+  </footer>
+  
+<button id="scrollTopBtn" aria-label="Uz augšu">
+  <svg width="48" height="48" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20" class="bg"/>
+    <circle cx="24" cy="24" r="20" class="progress"/>
+  </svg>
+  <span class="arrow">↑</span>
+</button>
+
+  <script>
+    (function(){
+      /* ========== Tumšā/gaišā režīma loģika ========== */
+      const LS_THEME = 'pb_theme';
+      const root = document.documentElement; // <html>
+      const themeToggle = document.getElementById('themeToggle');
+
+      // Atjauno tēmu no localStorage (ja ir)
+      const saved = localStorage.getItem(LS_THEME);
+      if (saved === 'dark' || saved === 'light') {
+        root.setAttribute('data-theme', saved);
+      }
+
+      // Pārslēdz tēmu ar pogu
+      themeToggle.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem(LS_THEME, next);
+      });
+
+/* ===== Scroll to top ===== */
+const scrollBtn = document.getElementById('scrollTopBtn');
+const progressCircle = scrollBtn.querySelector('.progress');
+
+const radius = 20;
+const circumference = 2 * Math.PI * radius;
+
+progressCircle.style.strokeDasharray = circumference;
+
+window.addEventListener('scroll', () => {
+
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+  const offset = circumference - (scrollPercent * circumference);
+  progressCircle.style.strokeDashoffset = offset;
+
+  // Parāda pogu
+  if (scrollTop > 50) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+
+// Klikšķis
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+    })();
+  </script>
+</body>
+</html>

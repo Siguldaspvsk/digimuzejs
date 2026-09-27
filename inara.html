@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ināra Dalke</title>
+
+  <style>
+    /* ===== Krāsu mainīgie ===== */
+:root{
+  --bg:#f4ecd8;
+  --text:#2f2f2f;
+  --muted:#6b6b6b;
+  --brand:#4e93fc;
+  --border:#d6cbb3;
+}
+
+    /* Tumšais režīms: šis strādā, ja data-theme tiek uzlikts UZ <html> elementa */
+    
+html[data-theme="dark"]{
+  --bg:#1f1d18;        
+  --text:#f1eee6;
+  --muted:#b8b1a6;
+  --brand:#d4af37;     
+  --border:#3b352c;
+}
+
+html[data-theme="dark"] #scrollTopBtn .bg{
+  stroke: rgba(255,255,255,0.2);
+} 
+
+html[data-theme="dark"] #scrollTopBtn .arrow{
+  color: var(--brand);
+}
+
+/* ===== Bāze ===== */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
+      line-height:1.5;
+    }
+
+/* ===== Augšējā josla ===== */
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--bg); border-bottom:1px solid var(--border);
+    padding:.6rem .9rem;
+    }
+  .brand{display:flex; align-items:center; gap:.5rem; color:var(--brand); font-weight:800}
+  .brand__emoji{font-size:1.2rem}
+  .icon-btn{background:transparent; border:1px solid var(--border); color:var(--text);
+            padding:.35rem .6rem; border-radius:.5rem; cursor:pointer;
+    }
+
+    /* ===== Kājene ===== */
+  .footer{ text-align:center; color:var(--muted); padding: 2rem 1rem; }
+
+  /* ===== Scroll to top poga ===== */
+  #scrollTopBtn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 300;
+
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  #scrollTopBtn.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+  /* SVG */
+  #scrollTopBtn svg{
+    transform: rotate(-90deg);
+}
+
+  #scrollTopBtn circle{
+    fill: none;
+    stroke-width: 4;
+}
+
+  #scrollTopBtn .bg{
+    stroke: rgba(0,0,0,0.1);
+}
+
+  #scrollTopBtn .progress{
+    stroke: var(--brand);
+    stroke-linecap: round;
+    stroke-dasharray: 126; /* 2πr ≈ 2×3.14×20 */
+    stroke-dashoffset: 126;
+    transition: stroke-dashoffset .1s linear;
+}
+
+  /* Bultiņa */
+  #scrollTopBtn .arrow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brand);
+    font-size: 16px;
+    font-weight: bold;
+}
+/* ===== Teksta formatējums ===== */
+.teksts {padding: 12px 20px;
+          max-width: 1000px;
+          margin: 0 auto;}
+.moto {font-style: italic;
+        font-size: 14pt;}
+h1 {text-align: center;}
+.strada {text-align: center;}
+.intervetajs {text-align: right;
+                font-style: italic;}
+.jautajums {font-weight: bold;}
+p {text-align: justify;}
+
+/* ===== Profila bilde ===== */
+.profila_bilde {width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;}
+.profila_ramis {display: flex;
+                justify-content: right;
+                margin-bottom: 30px;}
+.profila_robeza {width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                padding: 6px;
+                background: linear-gradient(125deg, #4e93fc, #0850bd, #3b352c);
+                background-size: 300%;
+                animation: border-rotate 4s linear infinite;}
+@keyframes border-rotate{
+                0% {background-position: 0% 50%;}
+                50% {background-position: 100% 50%;}
+                100% {background-position: 0% 50%;}
+            }
+/* ===== Poga uz sākumu ===== */
+.back-btn{display:block;
+        width: fit-content;
+        margin:2rem auto;
+        padding:.7rem 1.2rem;
+        background:#d4af37;
+        color:white;
+        text-decoration:none;
+        border-radius:8px;
+        text-align: center;
+        transition: .3s;}
+.back-btn:hover{opacity:.9;
+                background-color: #4e93fc;}
+  </style>
+</head>
+<body>
+  <!-- Virsraksta josla -->
+  <header class="topbar" aria-label="Galvenā navigācija">
+    <div class="brand">
+      <span class="brand__emoji">🐜</span>
+      <span class="brand__text">Siguldas pilsētas vidusskola</span>
+    </div>
+    <button id="themeToggle" class="icon-btn" aria-label="Tumšais/gaišais režīms" type="button">🌓</button>
+  </header>
+
+  <!-- Intervija -->
+   <div class="teksts">
+    <div class="profila_ramis">
+          <div class="profila_robeza">
+              <img src="Inara_Dalke/Inara_Dalke_bilde.jpeg" class="profila_bilde" alt="Ināra Dalke">
+          </div>
+    </div>
+    <p class="moto">"Es varu, man viss izdosies!"</p>
+    <h1>MATEMĀTIKAS SKOLOTĀJA INĀRA DALKE</h1>
+    <p class="strada">Strādā Siguldas pilsētas vidusskolā no 2011.gada</p>
+    <p class="intervetajs">Intervētāja Sabīne Čākure</p>
+    <p class="jautajums">Cik gadus jūs strādājat šajā skolā?</p>
+    <p>Skola svin 15 gadu jubileju, un es šajā ēkā strādāju gandrīz visu šo laiku — tuvu pie 30 gadiem.</p>
+    <p class="jautajums">Kāpēc tieši izvēlējāties strādāt Siguldas pilsētas vidusskolā?</p>
+    <p>Tajā brīdī šeit bija vakance. Toreiz tā vēl nebija Siguldas pilsētas vidusskola 
+      — vienkārši pilsētas vidusskola. Skolā bija vajadzīga skolotāja pirmajai klasei, 
+      un mani iedrošināja direktors Jēkabsons. Vienkārši tā sanāca.</p>
+    <p class="jautajums">Kas jums visvairāk patīk skolotājas darbā?</p>
+    <p>Laikam jau komunikācija ar jauniešiem. Tas azarts, ko var iegūt no lielākās daļas skolēnu. 
+      Protams, ir arī tādi, kuri šo azartu nedod, jo negrib neko darīt, un tas savukārt apbēdina. 
+      Taču man patīk izaicinājums — tu nekad nezini, kā stunda sāksies, 
+      kā tā beigsies un kādas situācijas radīsies klases audzināšanā.</p>
+    <p class="jautajums">Kā jūs skaidrojat sarežģītas tēmas, lai visi tās saprastu?</p>
+    <p>Es mēģinu visu sasaistīt ar ikdienas dzīvi un iznest ārpus matemātikas robežām. 
+      Daudziem šķiet, ka matemātika ir tikai tas, kas ierakstīts kladē. 
+      Piemēram, stāstot par proporcijām, es runāju par keksiņu cepšanu 
+      — vai tu cep trim cilvēkiem vai visai klasei. Tā ir tīra matemātika un proporcijas. 
+      Man šķiet, ka tad skolēniem kļūst vieglāk saprast.</p>
+    <p class="jautajums">Vai jums šķiet, ka humora izmantošana stundās ir svarīga?</p>
+    <p>Es domāju, ka jā.</p>
+    <p class="jautajums">Vai, jūsuprāt, visiem var padoties matemātika?</p>
+    <p>Domāju, ka jā — pamatu līmenī noteikti visiem. Darbā tas man ir pierādījies. 
+      Ir bērni, kuriem viss padodas ļoti dabiski, bet citiem jāiegulda vairāk darba. 
+      Tā ir visos priekšmetos. Matemātika, kā es saku, ir kā kārtainā kūka — ja vienu kārtu neuztaisi, 
+      pēc tam jāiegulda daudz vairāk darba. Ja skolēns cenšas un turpina "būvēt šo kūku", tad viss izdodas. 
+      Esmu satikusi jauniešus, kuriem vidusskolā matemātika sagādāja grūtības, 
+      bet tagad viņi risina sarežģītus uzdevumus un studē augstskolās.</p>
+    <p class="jautajums">Kādas papildu prasmes skolēni apgūst jūsu stundās, izņemot matemātiku?</p>
+    <p>Man ir grūti pateikt, bet gribētos cerēt, ka bērni iemācās saprast vienu svarīgu lietu 
+      — matemātika māca domāt secīgi. Nevis histēriski skraidīt pa māju un kārtot istabu, 
+      bet izdomāt, kā to izdarīt ērti un ātri. Dari visu secīgi! Man šķiet, 
+      ka prasme plānot ir viens no matemātikas blakusproduktiem.</p>
+    <p class="jautajums">Kāds ir bijis smieklīgākais gadījums stundu laikā?</p>
+    <p>Tādu ir bijis ļoti daudz. Dažreiz puse no pateikta teikuma tiek pārprasta un iegūst joku formu. 
+      Tad skolēni kaut ko papildina, visa klase sāk smieties, un rodas humors. 
+      Visbiežāk tās ir situācijas, kad skolēni mani pārprot vai es nepabeidzu domu līdz galam.</p>
+    <p class="jautajums">Vai, jūsuprāt, mākslīgais intelekts var aizstāt skolotājus?</p>
+    <p>Domāju, ka ar to ir jārēķinās — tas jau ir mūsu ikdienā. Katrs bērns mācās citādi. 
+      Kā skolotāja es stundā varu piedāvāt trīs dažādus skaidrošanas veidus, bet, 
+      ja kādam ar to nepietiek, iespējams, viņam palīdzēs mākslīgais intelekts vai kāds cits digitālais rīks. 
+      Mēs nevaram simtprocentīgi pielāgoties visiem.</p>
+    <p class="jautajums">Kā iemācīt skolēnam nebaidīties kļūdīties?</p>
+    <p>Ar mēģināšanu. Ja es pasaku, ka esi kļūdījies, tas nenozīmē, ka tu esi slikts vai nekam nederīgs. 
+      Domāju, ka nebaidīties kļūdīties cilvēks mācās jau bērnībā. Kad bērns nokrīt, mamma viņu paceļ, 
+      nopurina un samīļo, nevis rada drāmu. Tieši tāpat ir arī mācībās.</p>
+    <p class="jautajums">Ko jūs novēlētu nākamajām paaudzēm?</p>
+    <p>Noteikti izmantot visas savas iespējas un sākt ar vārdiem: 
+      "Es varu, man viss izdosies!", nevis: "Es nevaru."</p>    
+    <a href="index.html" class="back-btn">SĀKUMS</a>
+</div>
+
+  <footer class="footer">
+    <small>Copyright © 2026 Siguldas pilsētas vidusskola</small>
+  </footer>
+  
+<button id="scrollTopBtn" aria-label="Uz augšu">
+  <svg width="48" height="48" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20" class="bg"/>
+    <circle cx="24" cy="24" r="20" class="progress"/>
+  </svg>
+  <span class="arrow">↑</span>
+</button>
+
+  <script>
+    (function(){
+      /* ========== Tumšā/gaišā režīma loģika ========== */
+      const LS_THEME = 'pb_theme';
+      const root = document.documentElement; // <html>
+      const themeToggle = document.getElementById('themeToggle');
+
+      // Atjauno tēmu no localStorage (ja ir)
+      const saved = localStorage.getItem(LS_THEME);
+      if (saved === 'dark' || saved === 'light') {
+        root.setAttribute('data-theme', saved);
+      }
+
+      // Pārslēdz tēmu ar pogu
+      themeToggle.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem(LS_THEME, next);
+      });
+
+/* ===== Scroll to top ===== */
+const scrollBtn = document.getElementById('scrollTopBtn');
+const progressCircle = scrollBtn.querySelector('.progress');
+
+const radius = 20;
+const circumference = 2 * Math.PI * radius;
+
+progressCircle.style.strokeDasharray = circumference;
+
+window.addEventListener('scroll', () => {
+
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+  const offset = circumference - (scrollPercent * circumference);
+  progressCircle.style.strokeDashoffset = offset;
+
+  // Parāda pogu
+  if (scrollTop > 50) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+
+// Klikšķis
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+    })();
+  </script>
+</body>
+</html>
