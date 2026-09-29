@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vineta Šķestere - Buka</title>
+
+  <style>
+    /* ===== Krāsu mainīgie ===== */
+:root{
+  --bg:#f4ecd8;
+  --text:#2f2f2f;
+  --muted:#6b6b6b;
+  --brand:#4e93fc;
+  --border:#d6cbb3;
+}
+
+    /* Tumšais režīms: šis strādā, ja data-theme tiek uzlikts UZ <html> elementa */
+    
+html[data-theme="dark"]{
+  --bg:#1f1d18;        
+  --text:#f1eee6;
+  --muted:#b8b1a6;
+  --brand:#d4af37;     
+  --border:#3b352c;
+}
+
+html[data-theme="dark"] #scrollTopBtn .bg{
+  stroke: rgba(255,255,255,0.2);
+} 
+
+html[data-theme="dark"] #scrollTopBtn .arrow{
+  color: var(--brand);
+}
+
+/* ===== Bāze ===== */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
+      line-height:1.5;
+    }
+
+/* ===== Augšējā josla ===== */
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--bg); border-bottom:1px solid var(--border);
+    padding:.6rem .9rem;
+    }
+  .brand{display:flex; align-items:center; gap:.5rem; color:var(--brand); font-weight:800}
+  .brand__emoji{font-size:1.2rem}
+  .icon-btn{background:transparent; border:1px solid var(--border); color:var(--text);
+            padding:.35rem .6rem; border-radius:.5rem; cursor:pointer;
+    }
+
+    /* ===== Kājene ===== */
+  .footer{ text-align:center; color:var(--muted); padding: 2rem 1rem; }
+
+  /* ===== Scroll to top poga ===== */
+  #scrollTopBtn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 300;
+
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  #scrollTopBtn.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+  /* SVG */
+  #scrollTopBtn svg{
+    transform: rotate(-90deg);
+}
+
+  #scrollTopBtn circle{
+    fill: none;
+    stroke-width: 4;
+}
+
+  #scrollTopBtn .bg{
+    stroke: rgba(0,0,0,0.1);
+}
+
+  #scrollTopBtn .progress{
+    stroke: var(--brand);
+    stroke-linecap: round;
+    stroke-dasharray: 126; /* 2πr ≈ 2×3.14×20 */
+    stroke-dashoffset: 126;
+    transition: stroke-dashoffset .1s linear;
+}
+
+  /* Bultiņa */
+  #scrollTopBtn .arrow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brand);
+    font-size: 16px;
+    font-weight: bold;
+}
+/* ===== Teksta formatējums ===== */
+.teksts {padding: 12px 20px;
+          max-width: 1000px;
+          margin: 0 auto;}
+.moto {font-style: italic;
+        font-size: 14pt;}
+h1 {text-align: center;}
+.strada {text-align: center;}
+.intervetajs {text-align: right;
+                font-style: italic;}
+.jautajums {font-weight: bold;}
+p {text-align: justify;}
+
+/* ===== Profila bilde ===== */
+.profila_bilde {width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;}
+.profila_ramis {display: flex;
+                justify-content: right;
+                margin-bottom: 30px;}
+.profila_robeza {width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                padding: 6px;
+                background: linear-gradient(125deg, #4e93fc, #0850bd, #3b352c);
+                background-size: 300%;
+                animation: border-rotate 4s linear infinite;}
+@keyframes border-rotate{
+                0% {background-position: 0% 50%;}
+                50% {background-position: 100% 50%;}
+                100% {background-position: 0% 50%;}
+            }
+/* ===== Poga uz sākumu ===== */
+.back-btn{display:block;
+        width: fit-content;
+        margin:2rem auto;
+        padding:.7rem 1.2rem;
+        background:#d4af37;
+        color:white;
+        text-decoration:none;
+        border-radius:8px;
+        text-align: center;
+        transition: .3s;}
+.back-btn:hover{opacity:.9;
+                background-color: #4e93fc;}
+  </style>
+</head>
+<body>
+  <!-- Virsraksta josla -->
+  <header class="topbar" aria-label="Galvenā navigācija">
+    <div class="brand">
+      <span class="brand__emoji">🐜</span>
+      <span class="brand__text">Siguldas pilsētas vidusskola</span>
+    </div>
+    <button id="themeToggle" class="icon-btn" aria-label="Tumšais/gaišais režīms" type="button">🌓</button>
+  </header>
+
+  <!-- Intervija -->
+   <div class="teksts">
+    <div class="profila_ramis">
+          <div class="profila_robeza">
+              <img src="Vineta_Skestere_Buka/Vineta_SB_bilde.jpeg" class="profila_bilde" alt="Vineta Šķestere - Buka">
+          </div>
+    </div>
+    <p class="moto">"Skolotājs ir diagnoze."</p>
+    <h1>LATVIEŠU VALODAS UN LITERATŪRAS SKOLOTĀJA, 
+      DIREKTORES VIETNIECE ĀRPUSSKOLAS MĀCĪBU DARBĀ VINETA ŠĶESTERE-BUKA</h1>
+    <p class="strada">Strādā Siguldas pilsētas vidusskolā no 2011.gada</p>
+    <p class="intervetajs">Intervētāja Katrīna Mesle</p>
+    <p class="jautajums">Cik gadus Jūs strādājat par skolotāju?</p>
+    <p>26 pilnus, gandrīz 27 gadus.</p>
+    <p class="jautajums">Kā Jūs izvēlējāties kļūt par skolotāju?</p>
+    <p>Par skolotāju es kļuvu nejauši. 
+      Es izvēlējos kļūt par skolotāju… īstenībā droši vien nemaz ļoti neizvēlējos. 
+      Tas laikam ir gēnos, jo manā ģimenē ir ļoti daudz skolotāju. 
+      Otrs iemesls bija tas, ka man vajadzēja atskaitīties direktoram, 
+      kur gribu iet mācīties, un tā bija augstskola, kur neviens no skolotājiem man nevarēja piesieties. 
+      Tur es aizgāju, iestājos kā trešā labākā un tiku iekšā. 
+      Tad nekur citur vairs nemēģināju. Bet neko nenožēloju.</p>
+    <p class="jautajums">Kas tā bija par skolu?</p>
+    <p>Rīgas Pedagoģijas un izglītības vadības augstskola. 
+      Pats labākais bija tas, ka tur maijā varēja kārtot iestājeksāmenus. 
+      Es vēl nebiju beigusi vidusskolu, bet jau biju iestājusies augstskolā.</p>
+    <p class="jautajums">Vai šī bija Jūsu pirmā karjeras izvēle?</p>
+    <p>Es sapņoju kļūt par žurnālisti. Pat gāju mācīties dažādos kursos, bet nesanāca.</p>
+    <p class="jautajums">Kādus mācību priekšmetus un klases Jūs mācāt?</p>
+    <p>Latviešu valodu un literatūru 7. - 9. klasēm. 
+      Vidusskolā mācu kultūras menedžmentu un pasākumu menedžmentu.</p>
+    <p class="jautajums">Vai esat strādājusi arī citās skolās?</p>
+    <p>Īstenībā nē. Visu laiku strādāju vienā un tajā pašā skolā, 
+      tikai nosaukumi mainījās. Sākumā tā bija Siguldas 3. pamatskola, 
+      vēlāk kļuva par Siguldas pilsētas vidusskolu.</p>
+    <p class="jautajums">Kādi bija Jūsu pirmie gadi skolā?</p>
+    <p>Ļoti jauki, protams, arī bailīgi, jo man bija tikai 20 gadi, kad sāku strādāt skolā. 
+      Es neko daudz nezināju, tikai tik, cik pati atcerējos no savas skolas pieredzes. 
+      Man bija burvīga audzināmā klase — trešā klase. 
+      Bērni bija ļoti forši, bet vecāki mani vienkārši lutināja — dāvināja dāvanas, 
+      rūpējās par mani kā par mazu bērnu. Man viss bija brīnišķīgi.</p>
+    <p class="jautajums">Kas bija visgrūtākais, uzsākot darbu?</p>
+    <p>Visgrūtākais bija tas, ka es neko nesapratu, un arī augstskolā to neiemācīja. 
+      Piemēram, kā aizpildīt žurnālu. Tajā laikā nebija e-klases — bija papīra žurnāli. 
+      Ko tur rakstīt? Kā rakstīt stundu tēmas? Tīri dokumentācijas lietas. 
+      Man ļoti palīdzēja kolēģe Ineta Stepanova, kura joprojām strādā mūsu skolā.</p>
+    <p class="jautajums">Kas palīdzēja Jums pierast pie skolotāja darba?</p>
+    <p>Man īsti nebija jāpierod. Es principā pabeidzu vidusskolu, 
+      mazliet pamācījos augstskolā un atgriezos atpakaļ skolā.</p>
+    <p class="jautajums">Kā Jūs esat attīstījusies kā skolotāja gadu laikā?</p>
+    <p>Man liekas, ka labākā lieta, ko esmu iemācījusies, ir gandrīz vairs nebārties. 
+      Agrāk bāros daudz vairāk. Jo ilgāk strādā skolā, jo mierīgāks kļūsti. 
+      Tas nenozīmē, ka es nedusmojos, bet balsi paceļu ļoti reti.</p>
+    <p class="jautajums">Vai esat piedalījusies kursos vai apmācībās?</p>
+    <p>Jā, protams. Tas mums ir obligāti.</p>
+    <p class="jautajums">Kā izskatās Jūsu tipiska darba diena?</p>
+    <p>Ceļos plkst. 5.45. Tad sagatavojos dienai, pavingroju, sataisu brokastis bērniem un sakārtojos. 
+      Pusastoņos esmu skolā. Ja man nav pirmā stunda, tad brokastoju un aprunājos ar kolēģēm 
+      Diānu un Lindu — par to, kas noticis un kas plānots. Tad sākas diena. Labākā lieta ir tā, 
+      ka es nekad nezinu, kāda tā būs. Es zinu tikai to, ka man būs stundas, bet viss pārējais plūst un mainās.</p>
+    <p class="jautajums">Kā Jūs plānojat savas stundas?</p>
+    <p>Ir tematiskais plāns, ko parasti izveido augustā. Tad ejam secīgi cauri tēmām un skatāmies, 
+      cik daudz laika katrai klasei vajag. Bet stundas nekad nav iespējams pilnībā paredzēt. 
+      Es varu saplānot vienu, bet bērni tajā dienā ir pavisam citādi, un beigās iznāk pavisam cita stunda. 
+      Dažreiz pietiek tikai ar lielo ideju, un sanāk perfekta stunda. Citreiz viss saplānots pa minūtēm, 
+      bet nekas nesanāk. Tāpēc man patīk strādāt skolā — rutīnas nav.</p>
+    <p class="jautajums">Vai izmantojat tehnoloģijas mācību procesā?</p>
+    <p>Jā, bet diezgan maz. Es neesmu ļoti tehnoloģiska. Mākslīgo intelektu izmantoju, piemēram, 
+      lai palīdzētu uzrakstīt oficiālus tekstus vai izdomāt teikumus. Bet neesmu no tām skolotājām, 
+      kuras ļoti advancēti izmanto dažādus rīkus. Man augstākā pilotāža ir projektors.</p>
+    <p class="jautajums">Vai darbs bieži turpinās arī pēc skolas?</p>
+    <p>Jā, vienmēr. Ja ir vairāk stundu, tad vakaros jāgatavojas un jālabo darbi. 
+      Ja ir pasākumi, tad bieži jāstrādā arī mājās. Skolotājam īsti nav noteikta darba laika.</p>
+    <p class="jautajums">Kā Jūs raksturotu savus skolēnus?</p>
+    <p>Visi skolēni, kas pie manis mācās, ir paši labākie. 
+      Siguldas pilsētas vidusskolas skolēni ir ļoti cieņpilni. 
+      Viņi ciena skolotājus, citus cilvēkus un citu viedokli.</p>
+    <p class="jautajums">Kā Jūs veidojat kontaktu ar jaunajiem skolēniem?</p>
+    <p>Es neko īpašu nedaru. Vienkārši uztveru viņus kā cilvēkus — ar savu raksturu, 
+      vajadzībām un stiprajām pusēm.</p>
+    <p class="jautajums">Kā Jūs motivējat skolēnus mācīties?</p>
+    <p>Tie, kas mācās pie manis, ir paši labākie. Un, lai būtu paši labākie, ir jāstrādā. Nav cita varianta.</p> 
+    <p class="jautajums">Kā rīkoties, ja skolēns negrib mācīties?</p>
+    <p>Man liekas, ka tam vienmēr ir kāds iemesls. 
+      Varbūt viņam nepadodas, varbūt nav palīdzības, varbūt ir problēmas ģimenē. 
+      Tad jāmeklē, kāpēc viņam negribas mācīties.</p>
+    <p class="jautajums">Kā Jūs reaģējat uz konfliktiem klasē?</p>
+    <p>Konflikti ir normāla dzīves daļa. Galvenais ir runāt. 
+      Ja nevar pateikt aci pret aci, tad jāmeklē cits veids vai cilvēks, kas palīdz atrisināt situāciju.</p>
+    <p class="jautajums">Vai ir bijuši īpaši smieklīgi atgadījumi ar skolēniem?</p>
+    <p>Smieklīgu atgadījumu ir ļoti daudz, bet konkrētus grūti atcerēties. 
+      Galvenais, lai cilvēki spēj pasmieties arī paši par sevi.</p>
+    <p class="jautajums">Vai ir kādas īpašas atmiņas no pasākumiem ar skolas kolektīvu?</p>
+    <p>Atceros vienu skolotāju pasākumu Līgatnes dabas takās. 
+      Nenormāli lija lietus, visi bijām slapji kā žurkas, bet neviens nesūdzējās. 
+      Beigās atradām lapeni un visi kopā vienkārši baudījām to dienu.</p>
+    <p class="jautajums">Kādi ir lielākie izaicinājumi Jūsu darbā?</p>
+    <p>Smagākais ir redzēt, ka skolēnam ir problēmas, bet tu ne vienmēr vari palīdzēt. 
+      It īpaši, ja runa ir par nopietnām lietām, piemēram, vardarbību vai smagām ģimenes situācijām.</p>
+    <p class="jautajums">Vai skolotāja darbs emocionāli ir grūts?</p>
+    <p>Jā. Bērni paņem ļoti daudz enerģijas. Pat pēc mierīgas dienas vakarā jūties pilnīgi iztukšots. 
+      Skolotājam jābūt gan psihologam, gan vecākam, gan policistam, gan draugam.</p>
+    <p class="jautajums">Kā Jūs tiekat galā ar stresu?</p>
+    <p>Es daudz runāju. Man vajag kādam izstāstīt. Un ļoti palīdz fiziskas aktivitātes 
+      — skriešana, vingrošana, dejošana vai vienkārši kustēšanās.</p>
+    <p class="jautajums">Vai kādreiz esat domājusi mainīt profesiju?</p>
+    <p>Jā, bieži. Bet saprotu, ka man patīk tas, ko daru. Man patīk iet klasē un strādāt ar jauniešiem.</p>
+    <p class="jautajums">Kas Jums visvairāk patīk skolotāja darbā?</p>
+    <p>Lielākais gandarījums ir tad, kad satiec savus skolēnus un viņi ar prieku saka: "Skolotāj, sveiki!"</p>
+    <p class="jautajums">Vai ir skolēni vai notikumi, ar kuriem īpaši lepojaties?</p>
+    <p>Jā. Man ir ļoti foršas klases, un es lepojos ar katru no viņiem. 
+      Īpašs notikums bija tas, ka viena klase trīs gadus pēc kārtas ieguva "Gada klases" titulu.</p>
+    <p class="jautajums">Kā, Jūsuprāt, ir mainījusies skola gadu laikā?</p>
+    <p>Skolēni ir kļuvuši radošāki un drosmīgāki, bet arī daudz slinkāki. 
+      Dažreiz viņiem trūkst vēlmes saņemties un darīt.</p>
+    <p class="jautajums">Ko Jūs mainītu izglītības sistēmā?</p>
+    <p>Man nepatīk eksāmenu sistēma. Es vairāk atbalstītu gada atzīmju nozīmi 
+      un iestājeksāmenus augstskolās konkrētajā jomā. 
+      Un vēl — vajadzētu pārstāt nepārtraukti mainīt programmas.</p>
+    <p class="jautajums">Kāda ir sadarbība ar vecākiem?</p>
+    <p>Man ir ļoti forši vecāki — gan mammas, gan tēti. Sadarbība pārsvarā vienmēr ir bijusi laba.</p>
+    <p class="jautajums">Kas ir svarīgākais, ko skolēni no Jums var iemācīties?</p>
+    <p>Pacelties un darīt. Vienkārši darīt.</p>
+    <p class="jautajums">Ko Jūs ieteiktu jaunajiem skolotājiem?</p>
+    <p>Nevajag kļūt par skolēnu “čomiem”. 
+      Attiecībām jābūt draudzīgām un cieņpilnām, bet skolotājs tomēr ir skolotājs.</p>
+    <p class="jautajums">Ko Jūs ieteiktu skolēniem?</p>
+    <p>Pamēģināt. Pat ja šķiet, ka kaut kas būs muļķīgi — pamēģināt. Un iet uz visu ar atvērtu sirdi.</p>
+    <p class="jautajums">Ja Jums vienā teikumā būtu jāapraksta skolotāja darbs, ko Jūs teiktu?</p>
+    <p>"Skolotājs ir diagnoze."</p>
+    <p class="jautajums">Kā Jūs redzat savu nākotni šajā profesijā?</p>
+    <p>Es turpināšu mācīt bērnus, vest viņus uz kultūras pasākumiem, 
+      rādīt kultūru un mudināt izkāpt ārpus komforta zonas.</p>
+    <p class="jautajums">Vai ir vēl kaut kas, ko vēlētos novēlēt skolēniem vai skolotājiem?</p>
+    <p>Es novēlu visiem Siguldas pilsētas vidusskolas skolēniem, 
+      skolotājiem un darbiniekiem piedzīvot skolas renovāciju un beidzot strādāt cieņpilnos apstākļos.</p>    
+    <a href="index.html" class="back-btn">SĀKUMS</a>
+</div>
+
+  <footer class="footer">
+    <small>Copyright © 2026 Siguldas pilsētas vidusskola</small>
+  </footer>
+  
+<button id="scrollTopBtn" aria-label="Uz augšu">
+  <svg width="48" height="48" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20" class="bg"/>
+    <circle cx="24" cy="24" r="20" class="progress"/>
+  </svg>
+  <span class="arrow">↑</span>
+</button>
+
+  <script>
+    (function(){
+      /* ========== Tumšā/gaišā režīma loģika ========== */
+      const LS_THEME = 'pb_theme';
+      const root = document.documentElement; // <html>
+      const themeToggle = document.getElementById('themeToggle');
+
+      // Atjauno tēmu no localStorage (ja ir)
+      const saved = localStorage.getItem(LS_THEME);
+      if (saved === 'dark' || saved === 'light') {
+        root.setAttribute('data-theme', saved);
+      }
+
+      // Pārslēdz tēmu ar pogu
+      themeToggle.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem(LS_THEME, next);
+      });
+
+/* ===== Scroll to top ===== */
+const scrollBtn = document.getElementById('scrollTopBtn');
+const progressCircle = scrollBtn.querySelector('.progress');
+
+const radius = 20;
+const circumference = 2 * Math.PI * radius;
+
+progressCircle.style.strokeDasharray = circumference;
+
+window.addEventListener('scroll', () => {
+
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+  const offset = circumference - (scrollPercent * circumference);
+  progressCircle.style.strokeDashoffset = offset;
+
+  // Parāda pogu
+  if (scrollTop > 50) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+
+// Klikšķis
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+    })();
+  </script>
+</body>
+</html>
