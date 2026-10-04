@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gunta Veigule</title>
+
+  <style>
+    /* ===== Krāsu mainīgie ===== */
+:root{
+  --bg:#f4ecd8;
+  --text:#2f2f2f;
+  --muted:#6b6b6b;
+  --brand:#4e93fc;
+  --border:#d6cbb3;
+}
+
+    /* Tumšais režīms: šis strādā, ja data-theme tiek uzlikts UZ <html> elementa */
+    
+html[data-theme="dark"]{
+  --bg:#1f1d18;        
+  --text:#f1eee6;
+  --muted:#b8b1a6;
+  --brand:#d4af37;     
+  --border:#3b352c;
+}
+
+html[data-theme="dark"] #scrollTopBtn .bg{
+  stroke: rgba(255,255,255,0.2);
+} 
+
+html[data-theme="dark"] #scrollTopBtn .arrow{
+  color: var(--brand);
+}
+
+/* ===== Bāze ===== */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
+      line-height:1.5;
+    }
+
+/* ===== Augšējā josla ===== */
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--bg); border-bottom:1px solid var(--border);
+    padding:.6rem .9rem;
+    }
+  .brand{display:flex; align-items:center; gap:.5rem; color:var(--brand); font-weight:800}
+  .brand__emoji{font-size:1.2rem}
+  .icon-btn{background:transparent; border:1px solid var(--border); color:var(--text);
+            padding:.35rem .6rem; border-radius:.5rem; cursor:pointer;
+    }
+
+    /* ===== Kājene ===== */
+  .footer{ text-align:center; color:var(--muted); padding: 2rem 1rem; }
+
+  /* ===== Scroll to top poga ===== */
+  #scrollTopBtn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 300;
+
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  #scrollTopBtn.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+  /* SVG */
+  #scrollTopBtn svg{
+    transform: rotate(-90deg);
+}
+
+  #scrollTopBtn circle{
+    fill: none;
+    stroke-width: 4;
+}
+
+  #scrollTopBtn .bg{
+    stroke: rgba(0,0,0,0.1);
+}
+
+  #scrollTopBtn .progress{
+    stroke: var(--brand);
+    stroke-linecap: round;
+    stroke-dasharray: 126; /* 2πr ≈ 2×3.14×20 */
+    stroke-dashoffset: 126;
+    transition: stroke-dashoffset .1s linear;
+}
+
+  /* Bultiņa */
+  #scrollTopBtn .arrow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brand);
+    font-size: 16px;
+    font-weight: bold;
+}
+/* ===== Teksta formatējums ===== */
+.teksts {padding: 12px 20px;
+          max-width: 1000px;
+          margin: 0 auto;}
+.moto {font-style: italic;
+        font-size: 14pt;}
+h1 {text-align: center;}
+.strada {text-align: center;}
+.intervetajs {text-align: right;
+                font-style: italic;}
+.jautajums {font-weight: bold;}
+p {text-align: justify;}
+
+/* ===== Profila bilde ===== */
+.profila_bilde {width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;}
+.profila_ramis {display: flex;
+                justify-content: right;
+                margin-bottom: 30px;}
+.profila_robeza {width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                padding: 6px;
+                background: linear-gradient(125deg, #4e93fc, #0850bd, #3b352c);
+                background-size: 300%;
+                animation: border-rotate 4s linear infinite;}
+@keyframes border-rotate{
+                0% {background-position: 0% 50%;}
+                50% {background-position: 100% 50%;}
+                100% {background-position: 0% 50%;}
+            }
+/* ===== Poga uz sākumu ===== */
+.back-btn{display:block;
+        width: fit-content;
+        margin:2rem auto;
+        padding:.7rem 1.2rem;
+        background:#d4af37;
+        color:white;
+        text-decoration:none;
+        border-radius:8px;
+        text-align: center;
+        transition: .3s;}
+.back-btn:hover{opacity:.9;
+                background-color: #4e93fc;}
+  </style>
+</head>
+<body>
+  <!-- Virsraksta josla -->
+  <header class="topbar" aria-label="Galvenā navigācija">
+    <div class="brand">
+      <span class="brand__emoji">🐜</span>
+      <span class="brand__text">Siguldas pilsētas vidusskola</span>
+    </div>
+    <button id="themeToggle" class="icon-btn" aria-label="Tumšais/gaišais režīms" type="button">🌓</button>
+  </header>
+
+  <!-- Intervija -->
+   <div class="teksts">
+    <div class="profila_ramis">
+          <div class="profila_robeza">
+              <img src="Gunta_Veigule/guntaveigule.jpg" class="profila_bilde" alt="Gunta Veigule">
+          </div>
+    </div>
+    <p class="moto">"Grūtākais vienmēr ir bijis noturēt augstu latiņu ne tikai pašai, bet arī skolai..."</p>
+    <h1>MĀCĪBU PĀRZINE, SĀKUMSKOLAS SKOLOTĀJA GUNTA VEIGULE</h1>
+    <p class="strada">Strādāja Siguldas pilsētas vidusskolā no 2011. līdz 2022.gadam</p>
+    <p class="intervetajs">Intervētāja Endija Jakovicka</p>
+    <p class="jautajums">Kad un kāpēc jūs sākāt strādāt tieši 
+      Siguldas pilsētas vidusskolā? 
+      Kas bija tieši tas, kas jūs uzrunāja nākt šeit strādāt?</p>
+    <p>Pēc augstskolas pabeigšanas, 1975. gada 15. augustā, 
+      ierados darbā uz Siguldas internātskolu, kur 1983. gada 15. augustā, 
+      1.vidusskolas direktors, Valdis Jēkabsons, 
+      mani uzaicināja darbā uz vidusskolu par 1. - 3. klašu skolotāju, 
+      bet par direktora vietnieci, mācību un audzināšanas darbā, 
+      kļuvu 1995. gadā, kad skola no ģimnāzijas statusa 
+      tika pārdēvēta par Siguldas 3. pamatskolu (Skolas ielā 3.).</p>
+    <p class="jautajums">Kādi bija jūsu pienākumi, 
+      kurus bija jāveic skolā, strādājot par mācību pārzini?</p>
+    <p>Pienākumi, kuri obligāti bija jāveic šajā darba nozarē bija, 
+      pārsvarā, skolēnu un skolotāju mācību procesa uzraudzīšana skolā, 
+      vērot skolotāju stundas, rīkot skolēnu mācību olimpiādes un konkursus, 
+      rīkot kursus un seminārus skolotājiem un darbiniekiem u.t.t.</p>
+    <p class="jautajums">Vai jūs, strādājot skolā, 
+      pasniedzāt arī kādu citu mācību priekšmetu, 
+      un vai jums bija arī iespēja tikt pie savas audzināmās klases?</p>
+    <p>Bez mācību pārzines darba, mācīju arī latviešu valodu, 
+      rokdarbus (tā toreiz sauca mājturību) un pat sportu 
+      savā audzināmajā klasē. Jā, arī dabu, jeb kā tagad saka - dabaszinības.</p>
+    <p class="jautajums">Vai jums vairāk gāja pie sirds darbs, 
+      strādājot par mācību pārzini vai kā skolotājai, 
+      ar savu audzināmo klasi un mācīt bērniem citus mācību priekšmetus?</p>
+    <p>Man patika vadīt stundas skolēniem, jo zināju, 
+      ka varu un protu iemācīt viņiem, bet, tajā pašā laikā, 
+      mācību pārzines darbs bija ļoti atbildīgs, 
+      jo no tevis ir atkarīgs mācību process, 
+      gaitas un dažādi mācību konkursi.</p>
+    <p class="jautajums">Kas, jūsuprāt, bija grūtākais ar ko saskārāties 
+      savā Siguldas pilsētas vidusskolas karjerā, 
+      strādājot par mācību pārzini?</p>
+    <p>Grūtākais vienmēr ir bijis noturēt augstu latiņu ne tikai pašai, 
+      bet arī skolai. Atceros, ka tolaik bijām labākā skola Rīgas rajonā, 
+      kad pie mums brauca Izglītības un zinātnes ministrijas pārstāvji 
+      un pat mans institūta pasniedzējs - Jānis Mencis 
+      (daudzu mācību grāmatu autors matemātikā).</p>
+    <p class="jautajums">Kurš no amatiem skolā jums likās visgrūtākais 
+      - mācību pārzines vai skolotājas amats?</p>
+    <p>Grūtākais bija būt mācību pārzinei, jo, kā jau teicu, 
+      tas prasīja lielu atbildību. Pateicos saviem kolēģiem un kolektīvam, 
+      ka mani atbalstīja, uzklausīja un bija līdzās arī grūtos brīžos 
+      gan Skolas ielā 3, gan tad, kad iekļāvāmies atkal SPV veidolā.</p>
+    <p class="jautajums">Ja jums būtu iespēja atgriezties atkal strādāt 
+      Siguldas pilsētas vidusskolā, par ko jūs vēlētos turpināt strādāt 
+      - skolotāju vai mācību pārzini?</p>
+    <p>Ja atgrieztos skolā (ko es vairs nevēlos), mācītu bērnus, 
+      jo, kā jau minēju iepriekš, tas man padevās, 
+      bet par mācību pārzini gan vairs nevēlētos, 
+      jo tas prasa lielu atbildību.</p>
+    <p class="jautajums">Kas, jūsuprāt, visvairāk ir mainījies 
+      mūsdienu jauniešos, salīdzinot ar jauniešiem, 
+      kad jūs strādājāt Siguldas pilsētas vidusskolā?</p>
+    <p>Ir pilnībā cita paaudze ar citiem, saviem uzskatiem, paražām, 
+      pieņēmumiem un domāšanu, bet es uzskatu, ka tai ir jādzīvo savādāk, labāk!</p>
+    <p class="jautajums">Kas ir visspilgtākais notikums vai lieta, 
+      kas jums ir palikusi atmiņā visspilgtāk, strādājot šajā skolā?</p>
+    <p>Notikumu tik daudz, ka pat neatceros visus, bet man noteikti patika, 
+      ka mums (Kr.Barona ielā) bija pašam kolektīvam savi svētki (zīmēšanas kabinetā).</p>
+    <p class="jautajums">Ko jūs domājiet par to, 
+      kā skolotāji mūsdienās pasniedz priekšmetus un izskaidro skolēniem vielu? 
+      Vai jūs uzskatiet, ka agrāk skolotāji pasniedza daudz skaidrāk, 
+      saprotamāk un labāk priekšmetus nekā tagad?</p>
+    <p>Skola, skolotāji šodien ir cita paaudze - demokrātiski (bet par daudz), 
+      daudz atvērtāki, brīvāki apkārt skolēniem, sabiedrībai, 
+      savos spriedumos, uzskatos un rīcībās. Nav vairs striktu noteikumu, 
+      ko drīkst, vai nedrīkst. Ir tehnoloģijas, 
+      kuras palīdz ātrāk atrast dažādas atbildes uz sev nezināmo 
+      (skolēni paši vairs nevēlās piepūlēties padomāt). 
+      Man, gan, ir prieks par erudītiem jauniešiem un skolotājiem, 
+      kā arī skolotāji šodien, tāpat kā tad, 
+      dod skolēniem iespēju izglītoties, tikai pieņemiet to pretim!</p>
+    <a href="index.html" class="back-btn">SĀKUMS</a>
+</div>
+
+  <footer class="footer">
+    <small>Copyright © 2026 Siguldas pilsētas vidusskola</small>
+  </footer>
+  
+<button id="scrollTopBtn" aria-label="Uz augšu">
+  <svg width="48" height="48" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20" class="bg"/>
+    <circle cx="24" cy="24" r="20" class="progress"/>
+  </svg>
+  <span class="arrow">↑</span>
+</button>
+
+  <script>
+    (function(){
+      /* ========== Tumšā/gaišā režīma loģika ========== */
+      const LS_THEME = 'pb_theme';
+      const root = document.documentElement; // <html>
+      const themeToggle = document.getElementById('themeToggle');
+
+      // Atjauno tēmu no localStorage (ja ir)
+      const saved = localStorage.getItem(LS_THEME);
+      if (saved === 'dark' || saved === 'light') {
+        root.setAttribute('data-theme', saved);
+      }
+
+      // Pārslēdz tēmu ar pogu
+      themeToggle.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem(LS_THEME, next);
+      });
+
+/* ===== Scroll to top ===== */
+const scrollBtn = document.getElementById('scrollTopBtn');
+const progressCircle = scrollBtn.querySelector('.progress');
+
+const radius = 20;
+const circumference = 2 * Math.PI * radius;
+
+progressCircle.style.strokeDasharray = circumference;
+
+window.addEventListener('scroll', () => {
+
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+  const offset = circumference - (scrollPercent * circumference);
+  progressCircle.style.strokeDashoffset = offset;
+
+  // Parāda pogu
+  if (scrollTop > 50) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+
+// Klikšķis
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+    })();
+  </script>
+</body>
+</html>
