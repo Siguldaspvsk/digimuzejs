@@ -262,6 +262,27 @@ html[data-theme="dark"] .card:hover{
     font-size: 16px;
     font-weight: bold;
 }
+  .social-links{
+  display:flex;
+  gap:12px;
+  margin-top:8px;
+  flex-wrap:wrap;
+  }
+
+  .social-links a{
+  color:white; /* Balti burti */
+  text-decoration:none; /* Noņem pasvītrojumu */
+  font-weight:600;
+  padding:6px 10px;
+  border-radius:8px;
+  background:#4e93fc;
+  transition:0.3s;
+  }
+  
+  .social-links a:hover{
+  background:#2f74db;
+  text-decoration:none; /* Arī hover laikā bez pasvītrojuma */
+  }
   </style>
 </head>
 <body>
@@ -289,6 +310,14 @@ html[data-theme="dark"] .card:hover{
       <div class="profile-info">
         <h1 class="plant-name">Siguldas pilsētas vidusskola</h1>
         <p class="muted">Esi sveicināts SPV digitālajā muzējā!</p>
+        <div class="social-links">
+        <a href="https://www.facebook.com/SiguldasPilsetasVidusskola/"
+        target="_blank" rel="noopener noreferrer">📘 Facebook</a>
+        <a href="https://www.instagram.com/spvidusskola/"
+        target="_blank" rel="noopener noreferrer">📷 Instagram</a>
+        <a href="https://siguldaspv.edu.lv/"
+        target="_blank" rel="noopener noreferrer">🐜 SPV</a>
+      </div>
       </div>
     </div>
   </section>
