@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vija Brikmane</title>
+
+  <style>
+    /* ===== Krāsu mainīgie ===== */
+:root{
+  --bg:#f4ecd8;
+  --text:#2f2f2f;
+  --muted:#6b6b6b;
+  --brand:#4e93fc;
+  --border:#d6cbb3;
+}
+
+    /* Tumšais režīms: šis strādā, ja data-theme tiek uzlikts UZ <html> elementa */
+    
+html[data-theme="dark"]{
+  --bg:#1f1d18;        
+  --text:#f1eee6;
+  --muted:#b8b1a6;
+  --brand:#d4af37;     
+  --border:#3b352c;
+}
+
+html[data-theme="dark"] #scrollTopBtn .bg{
+  stroke: rgba(255,255,255,0.2);
+} 
+
+html[data-theme="dark"] #scrollTopBtn .arrow{
+  color: var(--brand);
+}
+
+/* ===== Bāze ===== */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;
+      line-height:1.5;
+    }
+
+/* ===== Augšējā josla ===== */
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--bg); border-bottom:1px solid var(--border);
+    padding:.6rem .9rem;
+    }
+  .brand{display:flex; align-items:center; gap:.5rem; color:var(--brand); font-weight:800}
+  .brand__emoji{font-size:1.2rem}
+  .icon-btn{background:transparent; border:1px solid var(--border); color:var(--text);
+            padding:.35rem .6rem; border-radius:.5rem; cursor:pointer;
+    }
+
+    /* ===== Kājene ===== */
+  .footer{ text-align:center; color:var(--muted); padding: 2rem 1rem; }
+
+  /* ===== Scroll to top poga ===== */
+  #scrollTopBtn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 300;
+
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  #scrollTopBtn.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+  /* SVG */
+  #scrollTopBtn svg{
+    transform: rotate(-90deg);
+}
+
+  #scrollTopBtn circle{
+    fill: none;
+    stroke-width: 4;
+}
+
+  #scrollTopBtn .bg{
+    stroke: rgba(0,0,0,0.1);
+}
+
+  #scrollTopBtn .progress{
+    stroke: var(--brand);
+    stroke-linecap: round;
+    stroke-dasharray: 126; /* 2πr ≈ 2×3.14×20 */
+    stroke-dashoffset: 126;
+    transition: stroke-dashoffset .1s linear;
+}
+
+  /* Bultiņa */
+  #scrollTopBtn .arrow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brand);
+    font-size: 16px;
+    font-weight: bold;
+}
+/* ===== Teksta formatējums ===== */
+.teksts {padding: 12px 20px;
+          max-width: 1000px;
+          margin: 0 auto;}
+.moto {font-style: italic;
+        font-size: 14pt;}
+h1 {text-align: center;}
+.strada {text-align: center;}
+.intervetajs {text-align: right;
+                font-style: italic;}
+.jautajums {font-weight: bold;}
+p {text-align: justify;}
+
+/* ===== Profila bilde ===== */
+.profila_bilde {width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;}
+.profila_ramis {display: flex;
+                justify-content: right;
+                margin-bottom: 30px;}
+.profila_robeza {width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                padding: 6px;
+                background: linear-gradient(125deg, #4e93fc, #0850bd, #3b352c);
+                background-size: 300%;
+                animation: border-rotate 4s linear infinite;}
+@keyframes border-rotate{
+                0% {background-position: 0% 50%;}
+                50% {background-position: 100% 50%;}
+                100% {background-position: 0% 50%;}
+            }
+/* ===== Poga uz sākumu ===== */
+.back-btn{display:block;
+        width: fit-content;
+        margin:2rem auto;
+        padding:.7rem 1.2rem;
+        background:#d4af37;
+        color:white;
+        text-decoration:none;
+        border-radius:8px;
+        text-align: center;
+        transition: .3s;}
+.back-btn:hover{opacity:.9;
+                background-color: #4e93fc;}
+  </style>
+</head>
+<body>
+  <!-- Virsraksta josla -->
+  <header class="topbar" aria-label="Galvenā navigācija">
+    <div class="brand">
+      <span class="brand__emoji">🐜</span>
+      <span class="brand__text">Siguldas pilsētas vidusskola</span>
+    </div>
+    <button id="themeToggle" class="icon-btn" aria-label="Tumšais/gaišais režīms" type="button">🌓</button>
+  </header>
+
+  <!-- Intervija -->
+   <div class="teksts">
+    <div class="profila_ramis">
+          <div class="profila_robeza">
+              <img src="Vija_Brikmane/Vija_B_bilde.jpeg" class="profila_bilde" alt="Vija Brikmane">
+          </div>
+    </div>
+    <p class="moto">"Jauniešiem vajag izmantot visas iespējas, 
+      lai attīstītu savu ķermeni, prātu un spējas, 
+      jo nākotnē tas būs ļoti noderīgi."</p>
+    <h1>ĶĪMIJAS SKOLOTĀJA VIJA BRIKMANE</h1>
+    <p class="strada"></p>
+    <p class="intervetajs">Intervētājs Markuss Vasiļjevs</p>
+    <p class="jautajums">Kā skola ir mainījusies kopš jūs sākāt strādāt?</p>
+    <p>Kopš 1979. gada skolā ir mainījies ļoti daudz — gan skolotāji, 
+      gan skolēni, gan attieksme pret mācībām, uzvedība un mācīšanās metodes. 
+      Agrāk viss bija daudz stingrāk. Skolēniem bija jāstrādā ar grāmatām 
+      un jāveic pieraksti, bet, ja kaut kas netika iemācīts, 
+      bija jāpaliek pēc stundām. 
+      Skolotāji īpaši pievērsās nesekmīgajiem skolēniem 
+      un centās viņiem palīdzēt. Mūsdienās skolēniem ir lielāka brīvība, 
+      un attieksme pret mācībām ir kļuvusi citādāka.</p>
+    <p class="jautajums">Kas bija grūtākais darbā ar skolēniem?</p>
+    <p>Grūtākais bija ieinteresēt tos skolēnus, kuri nevēlējās mācīties. 
+      Vajadzēja atrast veidu, kā viņus motivēt un iesaistīt mācību procesā. 
+      Tomēr ar skolēniem kopumā izdevās labi saprasties, arī ar tiem, 
+      kuriem bija uzvedības problēmas vai mazāka interese par mācībām. 
+      Bija svarīgi, lai gan skolotājs, gan skolēns būtu ieinteresēti 
+      sasniegt labu rezultātu. Lai uzturētu disciplīnu, 
+      dažreiz klases tika sadalītas grupās, 
+      taču visas problēmas tika risinātas sarunājoties un sadarbojoties.</p>
+    <p class="jautajums">Kā jūs parasti mācījāt stundās?</p>
+    <p>Kad mācījos vidusskolā un vēlāk augstskolā, 
+      pedagogu sagatavošana bija ļoti nopietna. 
+      Piecus gadus tika apgūta metodika un priekšmetu pasniegšana. 
+      Mācības notika piecas līdz sešas dienas nedēļā, 
+      un topošie skolotāji tika rūpīgi sagatavoti gan teorētiski, gan praktiski. 
+      Šo iegūto struktūru un darba pieeju vēlāk izmantojām arī savā darbā skolā.</p>
+    <p class="jautajums">Kādas bija attiecības ar skolēniem?</p>
+    <p>Man ar skolēniem bija ļoti labas un pozitīvas attiecības. 
+      Pat ar palaidnīgākajiem skolēniem izdevās labi saprasties. 
+      Es uzskatīju, ka daudz ko var panākt ar mierīgu sarunu, 
+      sapratni un cieņpilnu attieksmi. 
+      Ar aizliegumiem vai bardzību vien neko daudz nevar sasniegt, 
+      tāpēc svarīgākais bija savstarpēja uzticēšanās un komunikācija.</p>
+    <p class="jautajums">Kā tehnoloģijas, piemēram, 
+      telefoni un datori, ietekmēja mācības?</p>
+    <p>Kad skolās sāka parādīties pirmie datori, 
+      tas visiem bija kaut kas jauns un neierasts. 
+      Toreiz direktors skaidroja, 
+      ka ar datoru palīdzību būs iespējams atrast informāciju, 
+      piemēram, par bibliotēkā pieejamajām grāmatām. 
+      Tehnoloģijas skolā ienāca pakāpeniski, 
+      tāpēc sākumā lielu problēmu nebija. 
+      Bija datorikas stundas, kurās skolēni apguva jaunās tehnoloģijas. 
+      Tajā laikā skolēniem pārsvarā bija podziņtelefoni, 
+      un tos galvenokārt izmantoja zvanīšanai.</p>
+    <p class="jautajums">Vai ir kāds notikums skolā, ko jūs īpaši labi atceraties?</p>
+    <p>Īpaši atmiņā palicis kāds gadījums bioloģijas stundā, 
+      kad kopā ar skolēniem devāmies ārā. 
+      Pie manis pieskrēja suns, un skolēni, zinot, ka baidos no suņiem, 
+      nostājās man apkārt aplī, lai mani pasargātu. 
+      Tāpat ļoti siltas atmiņas saistās ar dzimšanas dienām, 
+      kad skolēni mani sveica un pat pacēla gaisā. 
+      Neaizmirstami bija arī dažādie piedzīvojumi ekskursijās.</p>
+    <p class="jautajums">Kādu padomu jūs dotu mūsdienu skolēniem?</p>
+    <p>Es ieteiktu skolēniem izmantot visas iespējas, ko dzīve piedāvā, 
+      un nelietderīgi netērēt savu laiku. Ir svarīgi lasīt grāmatas, 
+      jo tās attīsta domāšanu un paplašina redzesloku. 
+      Tāpat jauniešiem vajadzētu sportot, piedalīties sacensībās, 
+      dejot vai dziedāt korī. Šādas aktivitātes palīdz attīstīt 
+      personību raksturu un prasmes, kas būs noderīgas arī nākotnē.</p>
+    <p class="jautajums">Ja jūs varētu vienu lietu no 
+      skolēnu paradumiem aizliegt uz visiem laikiem, kas tā būtu?</p>
+    <p>Es vairāk domāju nevis par aizliegumiem, bet gan par ieteikumiem. 
+      Mūsdienās ļoti aktuāls ir mākslīgais intelekts, un ir svarīgi saprast, 
+      ka mēs paši to attīstām un ietekmējam. 
+      Taču noteikti vajadzētu izvairīties no narkotiku lietošanas, 
+      smēķēšanas un pārmērīgas alkohola lietošanas. 
+      Ja cilvēks apzinās, ka tas kaitē veselībai, 
+      bet tomēr turpina to darīt, tas nav pareizi.</p>
+    <a href="index.html" class="back-btn">SĀKUMS</a>
+</div>
+
+  <footer class="footer">
+    <small>Copyright © 2026 Siguldas pilsētas vidusskola</small>
+  </footer>
+  
+<button id="scrollTopBtn" aria-label="Uz augšu">
+  <svg width="48" height="48" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20" class="bg"/>
+    <circle cx="24" cy="24" r="20" class="progress"/>
+  </svg>
+  <span class="arrow">↑</span>
+</button>
+
+  <script>
+    (function(){
+      /* ========== Tumšā/gaišā režīma loģika ========== */
+      const LS_THEME = 'pb_theme';
+      const root = document.documentElement; // <html>
+      const themeToggle = document.getElementById('themeToggle');
+
+      // Atjauno tēmu no localStorage (ja ir)
+      const saved = localStorage.getItem(LS_THEME);
+      if (saved === 'dark' || saved === 'light') {
+        root.setAttribute('data-theme', saved);
+      }
+
+      // Pārslēdz tēmu ar pogu
+      themeToggle.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem(LS_THEME, next);
+      });
+
+/* ===== Scroll to top ===== */
+const scrollBtn = document.getElementById('scrollTopBtn');
+const progressCircle = scrollBtn.querySelector('.progress');
+
+const radius = 20;
+const circumference = 2 * Math.PI * radius;
+
+progressCircle.style.strokeDasharray = circumference;
+
+window.addEventListener('scroll', () => {
+
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+  const offset = circumference - (scrollPercent * circumference);
+  progressCircle.style.strokeDashoffset = offset;
+
+  // Parāda pogu
+  if (scrollTop > 50) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+
+// Klikšķis
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+    })();
+  </script>
+</body>
+</html>
