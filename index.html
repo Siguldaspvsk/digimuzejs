@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
 <title>SPV Digitālais muzejs</title>
 
 <!-- Open Graph -->
@@ -21,7 +22,7 @@
 
 <!-- Galvenā adrese -->
 <link rel="canonical" href="https://siguldaspvsk.github.io/digimuzejs/index.html">
-  
+
   <style>
     /* ===== Krāsu mainīgie ===== */
 :root{
@@ -111,12 +112,13 @@ html[data-theme="dark"] .card:hover{
 
   .avatar{
     /* Avatāram arī plūstošs izmērs, bet ar minimumu */
-      width: clamp(72px, 10vw, 140px);
-      height: clamp(72px, 10vw, 140px);
+      width: clamp(110px, 10vw, 140px);
+      height: clamp(110px, 10vw, 140px);
       border-radius:50%;
       object-fit:contain;
-      border:3px solid var(--card);
-      box-shadow:var(--shadow);
+      border:4px solid #d4af37; /* zelta ietvars */
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.25),
+                  0 4px 12px rgba(0,0,0,0.2);
       background:rgb(212, 209, 209);
       flex: 0 0 auto;
     }
@@ -223,26 +225,26 @@ html[data-theme="dark"] .card:hover{
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
   #scrollTopBtn.show{
     opacity: 1;
     pointer-events: auto;
-}
+  }
 
   /* SVG */
   #scrollTopBtn svg{
     transform: rotate(-90deg);
-}
+  }
 
   #scrollTopBtn circle{
     fill: none;
     stroke-width: 4;
-}
+  }
 
   #scrollTopBtn .bg{
     stroke: rgba(0,0,0,0.1);
-}
+  }
 
   #scrollTopBtn .progress{
     stroke: var(--brand);
@@ -250,7 +252,7 @@ html[data-theme="dark"] .card:hover{
     stroke-dasharray: 126; /* 2πr ≈ 2×3.14×20 */
     stroke-dashoffset: 126;
     transition: stroke-dashoffset .1s linear;
-}
+  }
 
   /* Bultiņa */
   #scrollTopBtn .arrow{
@@ -261,37 +263,40 @@ html[data-theme="dark"] .card:hover{
     color: var(--brand);
     font-size: 16px;
     font-weight: bold;
-}
+  }
   .social-links{
-  display:flex;
-  gap:12px;
-  margin-top:8px;
-  flex-wrap:wrap;
+    display:flex;
+    gap:12px;
+    margin-top:8px;
+    flex-wrap:wrap;
   }
 
-  .social-links a{
-  color:white; /* Balti burti */
-  text-decoration:none; /* Noņem pasvītrojumu */
-  font-weight:600;
-  padding:6px 10px;
-  border-radius:8px;
-  background:#4e93fc;
-  transition:0.3s;
-  }
-  
-  .social-links a:hover{
-  background:#2f74db;
-  text-decoration:none; /* Arī hover laikā bez pasvītrojuma */
-  }
+    .social-links a{
+    width:120px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+
+    background:var(--brand);
+    border-radius:8px;
+
+    transition:0.3s;
+}
+
   @media (max-width: 600px) {
   .social-links{
-  flex-direction:column;
+    flex-direction:column;
   }
 
   .social-links a{
-  width:100%;
+    width:100%;
   }
-  }
+}
   </style>
 </head>
 <body>
@@ -319,7 +324,7 @@ html[data-theme="dark"] .card:hover{
       <div class="profile-info">
         <h1 class="plant-name">Siguldas pilsētas vidusskola</h1>
         <p class="muted">Esi sveicināts SPV digitālajā muzējā!</p>
-        <div class="social-links">
+      <div class="social-links">
         <a href="https://www.facebook.com/SiguldasPilsetasVidusskola/"
         target="_blank" rel="noopener noreferrer">📘 Facebook</a>
         <a href="https://www.instagram.com/spvidusskola/"
